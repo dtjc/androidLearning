@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Learning</string>
+    <string name="title_activity_image_handle">ImageHandleActivity</string>
+    <string name="title_activity_ipc">IPCActivity</string>
 </resources>

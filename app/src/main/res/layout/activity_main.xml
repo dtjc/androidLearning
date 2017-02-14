@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_main_lly"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dt.learning.MainActivity">
+    android:orientation="horizontal"
+    tools:context="com.dt.learning.activities.MainActivity">
 
-    <ImageView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/test"/>
-    <ImageView
-        android:scaleType="matrix"
-        android:id="@+id/main_iv_test"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+        android:textAllCaps="false"
+        android:text="ImageHandle"
+        android:onClick="imageHandleClick"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="AIDL learn"
+        android:onClick="aidlLearnClick"/>
+    <TextView
+        android:id="@+id/activity_main_tv_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="text"/>
+</LinearLayout>
