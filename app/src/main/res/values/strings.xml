@@ -2,4 +2,6 @@
     <string name="app_name">Learning</string>
     <string name="title_activity_image_handle">ImageHandleActivity</string>
     <string name="title_activity_ipc">IPCActivity</string>
+    <string name="title_activity_network">NetworkActivity</string>
+    <string name="title_activity_bridge">BridgeActivity</string>
 </resources>

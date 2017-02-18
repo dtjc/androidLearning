@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -15,6 +16,7 @@
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +41,12 @@
             android:name=".service.MessengerService"
             android:enabled="true"
             android:exported="true"
-            android:process=":anotherprocess"></service>
+            android:process=":anotherprocess" />
+
+        <activity
+            android:name=".activities.NetworkActivity"
+            android:label="@string/title_activity_network"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

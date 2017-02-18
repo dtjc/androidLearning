@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_network"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.dt.learning.activities.NetworkActivity"
+    tools:showIn="@layout/activity_network">
+
+    <Button
+        android:id="@+id/content_network_btn_retrofit_get"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="retrofit2GetMethod"
+        android:textAllCaps="false"
+        android:onClick="retrofitRequest"/>
+
+    <TextView
+        android:id="@+id/content_network_tv_retrofit_get"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="content_retrofit_get"
+        android:textSize="@dimen/text_size_large"
+        android:gravity="center"
+        android:layout_toRightOf="@id/content_network_btn_retrofit_get"
+        android:layout_alignBaseline="@+id/content_network_btn_retrofit_get"/>
+
+    <Button
+        android:id="@+id/content_network_btn_retrofit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="retrofit2PostMethod"
+        android:textAllCaps="false"
+        android:layout_below="@+id/content_network_btn_retrofit_get"
+        android:onClick="retrofitRequest"/>
+
+    <TextView
+        android:id="@+id/content_network_tv_retrofit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="content retrofit_post"
+        android:textSize="@dimen/text_size_large"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/content_network_btn_retrofit_post"
+        android:layout_alignBaseline="@+id/content_network_btn_retrofit_post"/>
+
+    <Button
+        android:id="@+id/content_network_btn_retrofit_rxjava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="retrofit2WithRxjava"
+        android:textAllCaps="false"
+        android:layout_below="@+id/content_network_btn_retrofit_post"
+        android:onClick="retrofitRequest"/>
+
+    <TextView
+        android:id="@+id/content_network_tv_retrofit_rxjava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="content retrofit with rxjava"
+        android:textSize="@dimen/text_size_large"
+        android:layout_toRightOf="@+id/content_network_btn_retrofit_rxjava"
+        android:layout_alignBaseline="@+id/content_network_btn_retrofit_rxjava"/>
+
+
+
+
+
+</RelativeLayout>

@@ -23,6 +23,14 @@ import com.dt.learning.aidl.User;
 import com.dt.learning.service.AIDLService;
 import com.dt.learning.service.MessengerService;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class IPCActivity extends AppCompatActivity {
     //IPC,Inter-Process Communication,进程间通信
     private static final int CREATE_USER=1;
@@ -81,13 +89,9 @@ public class IPCActivity extends AppCompatActivity {
         bindService(msgerService,msgConn,BIND_AUTO_CREATE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener((view)->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
     }
 
     public void aidlClick(final View view){
@@ -98,7 +102,6 @@ public class IPCActivity extends AppCompatActivity {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
     }
 
     public void messengerClick(View view){

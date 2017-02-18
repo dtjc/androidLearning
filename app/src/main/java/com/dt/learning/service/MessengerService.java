@@ -38,8 +38,7 @@ public class MessengerService extends Service {
             super.handleMessage(msgFromClient);
         }
     });
-    public MessengerService() {
-    }
+    public MessengerService() {}
 
     @Override
     public IBinder onBind(Intent intent) {

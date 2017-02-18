@@ -1,25 +1,18 @@
 package com.dt.learning.Util;
 
-import android.app.Application;
+
 import android.widget.Toast;
-
 import com.dt.learning.MyApplication;
-
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.Random;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by dnnt9 on 2017/2/13.
  */
 
 public class Util {
-//    public enum Letter{
-//        q(0),w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m;
-//        private int index;
-//
-//        Letter(int i) {
-//            index=i;
-//        }
-//    }
     private static Toast toast;
     public static void showToast(String txt){
         if (toast==null)    toast=Toast.makeText(MyApplication.getContext(),txt,Toast.LENGTH_SHORT);
@@ -41,5 +34,14 @@ public class Util {
     public static int randomAge(){
         Random random=new Random(System.currentTimeMillis());
         return random.nextInt(120);
+    }
+
+    public static Retrofit getRetrofit(){
+        return new Retrofit
+                .Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("http://192.168.0.105:8080/info/")
+                .build();
     }
 }
