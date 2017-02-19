@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dt.learning">
 
+    <permission
+        android:name="com.dt.learning.permission.ACCESS_AIDL_SERVICE"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.dt.learning.permission.ACCESS_AIDL_SERVICE" />
 
     <application
         android:name=".MyApplication"
@@ -25,7 +30,8 @@
             android:name=".service.AIDLService"
             android:enabled="true"
             android:exported="true"
-            android:process=":anotherprocess" />
+            android:permission="com.dt.learning.permission.ACCESS_AIDL_SERVICE"
+            android:process=":remote" />
 
         <activity
             android:name=".activities.ImageHandleActivity"
@@ -41,12 +47,23 @@
             android:name=".service.MessengerService"
             android:enabled="true"
             android:exported="true"
-            android:process=":anotherprocess" />
+            android:process=":remote" />
 
         <activity
             android:name=".activities.NetworkActivity"
             android:label="@string/title_activity_network"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".service.TCPService"
+            android:process=":remote"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".activities.SocketActivity"
+            android:label="@string/title_activity_socket"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

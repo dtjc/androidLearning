@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class IPCActivity extends AppCompatActivity {
@@ -40,12 +41,32 @@ public class IPCActivity extends AppCompatActivity {
     private IFirstAidlInterface aidlInterface;
 
     private ServiceConnection aidlConn =new ServiceConnection() {
+        //当Binder死亡时，系统回调binderDied，用于重新连接
+        private IBinder.DeathRecipient recipient=new IBinder.DeathRecipient() {
+            @Override
+            public void binderDied() {
+                if (aidlInterface==null) return;
+                aidlInterface.asBinder().unlinkToDeath(recipient,0);
+                aidlInterface=null;
+                Intent aidlService=new Intent(IPCActivity.this, AIDLService.class);
+                bindService(aidlService,aidlConn,BIND_AUTO_CREATE);
+            }
+        };
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             aidlInterface=IFirstAidlInterface.Stub.asInterface(service);
+            //设置死亡代理
+            try {
+                service.linkToDeath(recipient,0);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
         @Override
-        public void onServiceDisconnected(ComponentName name) {}
+        public void onServiceDisconnected(ComponentName name) {
+            //亦可在此处重连，区别在于onServiceDisconnected在客户端的UI线程中被回调，
+            // 而binderDied在客户端的binder线程池中被回调
+        }
     };
 
     private ServiceConnection msgConn=new ServiceConnection() {

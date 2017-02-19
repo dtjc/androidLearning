@@ -2,6 +2,7 @@ package com.dt.learning.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -26,6 +27,8 @@ public class AIDLService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
+        if (checkCallingOrSelfPermission("com.dt.learning.permission.ACCESS_AIDL_SERVICE")== PackageManager.PERMISSION_DENIED)
+            return null;
         return aidlBinder;
     }
 }

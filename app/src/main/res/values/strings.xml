@@ -4,4 +4,5 @@
     <string name="title_activity_ipc">IPCActivity</string>
     <string name="title_activity_network">NetworkActivity</string>
     <string name="title_activity_bridge">BridgeActivity</string>
+    <string name="title_activity_socket">SocketActivity</string>
 </resources>

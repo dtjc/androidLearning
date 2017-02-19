@@ -1,5 +1,6 @@
 package com.dt.learning.activities;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Environment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.dt.learning.MyApplication;
 import com.dt.learning.R;
 import com.dt.learning.Util.Util;
 import com.dt.learning.aidl.User;
@@ -56,5 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void rerxClick(View view){
         startActivity(new Intent(this,NetworkActivity.class));
+    }
+
+    public void socketClick(View view){
+        startActivity(new Intent(this,SocketActivity.class));
     }
 }
