@@ -10,7 +10,6 @@ import com.dt.learning.aidl.IFirstAidlInterface;
 import com.dt.learning.aidl.User;
 
 public class AIDLService extends Service {
-    public static final int AIDL_SERVICE=1;
     //  AIDL,Android Interface Definition Language,安卓接口定义语言
     //  使用AIDL要传输自定义类型数据必须创建相应类型的aidl文件和java文件，java文件还必须实现Parcelable接口
     private Binder aidlBinder=new IFirstAidlInterface.Stub() {

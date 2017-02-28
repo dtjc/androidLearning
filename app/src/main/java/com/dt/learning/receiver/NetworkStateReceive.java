@@ -3,8 +3,11 @@ package com.dt.learning.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
+
 import com.dt.learning.Util.Util;
 
 /**
@@ -16,7 +19,12 @@ public class NetworkStateReceive extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info=connManager.getActiveNetworkInfo();
-        if (info == null)    return;
+        if (info == null){
+            Log.e("Info","null+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            return;
+        }else {
+            Log.e("info","not null+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        }
         int type=info.getType();
         if (type==ConnectivityManager.TYPE_WIFI)
             Util.showToast("正在使用wifi");

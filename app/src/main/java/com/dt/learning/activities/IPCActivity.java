@@ -23,15 +23,6 @@ import com.dt.learning.aidl.User;
 import com.dt.learning.service.AIDLService;
 import com.dt.learning.service.MessengerService;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
-
 public class IPCActivity extends AppCompatActivity {
     //IPC,Inter-Process Communication,进程间通信
     private static final int CREATE_USER=1;
@@ -52,6 +43,7 @@ public class IPCActivity extends AppCompatActivity {
                 bindService(aidlService,aidlConn,BIND_AUTO_CREATE);
             }
         };
+
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             aidlInterface=IFirstAidlInterface.Stub.asInterface(service);
