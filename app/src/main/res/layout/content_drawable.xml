@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_drawable"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.dt.learning.activities.DrawableActivity"
+    tools:showIn="@layout/activity_drawable">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/content_drawable_iv_transition"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/transition"/>
+        <Button
+            android:id="@+id/content_drawable_btn_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_selector"
+            android:text="transition"
+            android:textAllCaps="false"
+            android:layout_gravity="center_vertical"
+            android:onClick="transitionClick"/>
+
+        <ImageView
+            android:id="@+id/content_drawable_iv_level_list"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/levellist"
+            android:onClick="levelListClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/content_drawable_iv_clip"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/clip"
+            android:elevation="50dp"
+            android:gravity="center"
+            android:onClick="clipClick"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ripple"
+            android:text="ripple"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:onClick="rippleClick"/>
+        <ImageView
+            android:id="@+id/content_drawable_iv_scale"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/scale"/>
+    </LinearLayout>
+
+</LinearLayout>

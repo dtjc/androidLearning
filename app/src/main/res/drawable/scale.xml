@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/drawable2"
+    android:scaleGravity="center"
+    android:scaleHeight="60%"
+    android:scaleWidth="60%">
+</scale>

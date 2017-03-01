@@ -40,6 +40,17 @@
             android:onClick="socketClick"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="drawable"
+            android:textAllCaps="false"
+            android:onClick="drawableClick"/>
+    </LinearLayout>
+
 
     <com.dt.learning.customerview.MyCircleView
         android:layout_width="200dp"

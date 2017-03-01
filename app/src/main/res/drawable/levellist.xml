@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/drawable1"
+        android:minLevel="6"
+        android:maxLevel="8" />
+
+    <item android:drawable="@drawable/drawable2"
+        android:minLevel="0"
+        android:maxLevel="2" />
+
+    <item android:drawable="@drawable/drawable3"
+        android:minLevel="3"
+        android:maxLevel="5" />
+
+</level-list>

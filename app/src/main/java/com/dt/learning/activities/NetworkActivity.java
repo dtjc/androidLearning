@@ -1,11 +1,8 @@
 package com.dt.learning.activities;
 
-import android.media.audiofx.LoudnessEnhancer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,8 +10,6 @@ import com.dt.learning.R;
 import com.dt.learning.Util.Util;
 import com.dt.learning.aidl.User;
 import com.dt.learning.netservice.Data;
-
-import java.io.File;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
