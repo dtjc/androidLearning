@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+    android:shape="oval">
     <corners android:radius="20dp" />
     <solid android:color="#00ff00" />
-
+    <!--设置边界参数-->
+    <stroke android:dashGap="2dp"
+        android:dashWidth="4dp"
+        android:width="1dp"
+        android:color="#000000"/>
+    <size android:width="20dp" />
+    <size android:height="10dp" />
 </shape>

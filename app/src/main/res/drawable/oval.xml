@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- 渐变色，angle必须为45的倍数，包括0-->
+    <gradient android:startColor="#bfbf18"
+        android:endColor="#802ecd"
+        android:angle="45"
+        android:type="linear"/>
+
+    <!-- 设置大小,实际大小根据情况而定-->
+    <size android:height="22dp"
+        android:width="40dp"/>
+
+</shape>
