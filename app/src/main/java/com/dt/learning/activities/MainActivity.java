@@ -47,4 +47,8 @@ public class MainActivity extends AppCompatActivity {
     public void drawableClick(View view){
         startActivity(new Intent(this,DrawableActivity.class));
     }
+
+    public void animationClick(View view){
+        startActivity(new Intent(this,AnimationActivity.class));
+    }
 }

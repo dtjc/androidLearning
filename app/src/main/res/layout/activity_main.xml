@@ -49,6 +49,12 @@
             android:text="drawable"
             android:textAllCaps="false"
             android:onClick="drawableClick"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="animation"
+            android:onClick="animationClick"/>
     </LinearLayout>
 
 

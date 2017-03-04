@@ -23,23 +23,29 @@ public class TCPService extends Service {
 
     @Override
     public void onCreate() {
-        new Thread(()->{
-            ServerSocket serverSocket=null;
-            try {
-                serverSocket=new ServerSocket(8688);
-                while (!mIsDestroyed){
-                    //会阻塞当前进程
-                    Socket socket=serverSocket.accept();
-                    new Thread(()->{
-                        try {
-                            responseClient(socket);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ServerSocket serverSocket=null;
+                try {
+                    serverSocket=new ServerSocket(8688);
+                    while (!mIsDestroyed){
+                        //会阻塞当前进程
+                        final Socket socket=serverSocket.accept();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    responseClient(socket);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }).start();
         super.onCreate();

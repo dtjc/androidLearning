@@ -61,8 +61,11 @@ public class SocketActivity extends AppCompatActivity {
         Intent service=new Intent(this, TCPService.class);
         startService(service);
 
-        new Thread(()->{
-            connectTCPService();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                connectTCPService();
+            }
         }).start();
 
     }

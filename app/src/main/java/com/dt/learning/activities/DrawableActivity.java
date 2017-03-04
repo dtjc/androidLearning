@@ -49,34 +49,50 @@ public class DrawableActivity extends AppCompatActivity {
     public void clipClick(View view){
         if (mClipActive)    return;
         mClipActive = true;
-        new Thread(() -> {
-            for (int level = 2500;level <= 10000 ; level+=50){
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int level = 2500;level <= 10000 ; level+=50){
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    final int temLevel = level;
+                    new Handler(getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivClip.setImageLevel(temLevel);
+                        }
+                    });
                 }
-                int temLevel = level;
-                new Handler(getMainLooper()).post(() -> ivClip.setImageLevel(temLevel));
+                mClipActive = false;
             }
-            mClipActive = false;
         }).start();
     }
 
     public void rippleClick(View view){
         if(mScaleActive)    return;
         mScaleActive = true;
-        new Thread(()->{
-            for (int level = 2500;level <= 10000 ; level+=50){
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int level = 2500;level <= 10000 ; level+=50){
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    final int temLevel = level;
+                    new Handler(getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ivScale.setImageLevel(temLevel);
+                        }
+                    });
                 }
-                int temLevel = level;
-                new Handler(getMainLooper()).post(()->ivScale.setImageLevel(temLevel));
+                mScaleActive = false;
             }
-            mScaleActive = false;
         }).start();
     }
 
