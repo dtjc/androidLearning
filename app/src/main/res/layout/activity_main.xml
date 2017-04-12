@@ -55,6 +55,13 @@
             android:textAllCaps="false"
             android:text="animation"
             android:onClick="animationClick"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="filePath"
+            android:onClick="filePathClick"/>
     </LinearLayout>
 
 

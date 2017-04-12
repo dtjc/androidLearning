@@ -18,6 +18,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class TCPService extends Service {
+
+    //这个service是会发生内存泄露的，但是为了模仿服务端，因此不考虑
+
     private boolean mIsDestroyed=false;
     public TCPService() {}
 
@@ -66,7 +69,8 @@ public class TCPService extends Service {
         }
         if (in!=null)   in.close();
         if (out!=null)  out.close();
-        client.close();
+        if (client!=null)   client.close();
+        Log.e("stopTcpService","stop");
     }
 
     @Override

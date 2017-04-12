@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.dt.learning.R;
 import com.dt.learning.receiver.NetworkStateReceive;
@@ -50,5 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void animationClick(View view){
         startActivity(new Intent(this,AnimationActivity.class));
+    }
+
+    public void filePathClick(View view){
+        startActivity(new Intent(this,StoragePathActivity.class));
     }
 }

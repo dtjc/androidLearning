@@ -23,6 +23,9 @@ import com.dt.learning.aidl.User;
 import com.dt.learning.service.AIDLService;
 import com.dt.learning.service.MessengerService;
 
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
 public class IPCActivity extends AppCompatActivity {
     //IPC,Inter-Process Communication,进程间通信
     private static final int CREATE_USER=1;

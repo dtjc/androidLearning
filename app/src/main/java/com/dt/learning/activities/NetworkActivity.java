@@ -3,6 +3,7 @@ package com.dt.learning.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.dt.learning.R;
 import com.dt.learning.Util.Util;
 import com.dt.learning.aidl.User;
 import com.dt.learning.netservice.Data;
+import com.google.gson.Gson;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,6 +20,8 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 
 public class NetworkActivity extends AppCompatActivity {
 
@@ -42,12 +46,18 @@ public class NetworkActivity extends AppCompatActivity {
             case R.id.content_network_btn_retrofit_get:
                 Util.getRetrofit()
                         .create(Data.class)
-                        .getUserViaGet(1)
+                        .getUserViaGet()
                         .enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 User user=response.body();
                                 tvReGet.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
+                                Log.e("responseCode",String.valueOf(response.code()));
+                                Log.e("responseMsg",response.message());
+                                okhttp3.Headers headers = response.headers();
+                                for (int i=0;i<headers.size();i++){
+                                    Log.e(headers.name(i),headers.value(i));
+                                }
                             }
 
                             @Override
@@ -60,7 +70,7 @@ public class NetworkActivity extends AppCompatActivity {
             case R.id.content_network_btn_retrofit_post:
                 Util.getRetrofit()
                         .create(Data.class)
-                        .getUserViaPost(2)
+                        .getUserViaPost()
                         .enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
@@ -78,7 +88,7 @@ public class NetworkActivity extends AppCompatActivity {
             case R.id.content_network_btn_retrofit_rxjava:
                 Util.getRetrofit()
                         .create(Data.class)
-                        .getUserWithRx(1)
+                        .getUserWithRx()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<User>() {

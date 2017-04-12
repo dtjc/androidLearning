@@ -100,6 +100,7 @@ public class AnimationActivity extends AppCompatActivity {
                 ObjectAnimator.ofFloat(view,"scaleY",0.4f,1f),
                 ObjectAnimator.ofFloat(view,"pivotX",0),
                 ObjectAnimator.ofFloat(view,"pivotY",0),
+                ObjectAnimator.ofFloat(view,"rotationY",0,180),
                 ObjectAnimator.ofFloat(view,"alpha",0.25f,1f));
         animatorSet.setDuration(3000);
         animatorSet.addListener(new Animator.AnimatorListener() {

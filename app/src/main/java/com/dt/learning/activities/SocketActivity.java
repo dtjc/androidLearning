@@ -7,6 +7,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +61,6 @@ public class SocketActivity extends AppCompatActivity {
         btnSend=(Button)findViewById(R.id.content_socket_btn_send);
         Intent service=new Intent(this, TCPService.class);
         startService(service);
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,10 +87,11 @@ public class SocketActivity extends AppCompatActivity {
             BufferedReader br=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (!this.isFinishing()){
                 String msg=br.readLine();
-                if (msg!=null){
+                if (msg!=null)
                     mHander.obtainMessage(RECEIVE_MSG_FROM_SERVICE,msg).sendToTarget();
-                }
+                else break;
             }
+            Log.e("execute","printwriter close");
             if (mPrintWriter!=null) mPrintWriter.close();
             if (br!=null)   br.close();
             if (socket!=null)   socket.close();
@@ -109,14 +110,19 @@ public class SocketActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (mClientSocket!=null){
-            try {
+
+        try {
+//            if (mPrintWriter!=null) mPrintWriter.close();
+            if (mClientSocket!=null) {
                 mClientSocket.shutdownInput();
                 mClientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            super.onDestroy();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        super.onDestroy();
+
     }
+
 }

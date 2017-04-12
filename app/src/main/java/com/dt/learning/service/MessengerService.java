@@ -34,7 +34,6 @@ public class MessengerService extends Service {
                         e.printStackTrace();
                     }
                     break;
-
             }
             super.handleMessage(msgFromClient);
         }
