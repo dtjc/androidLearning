@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">hello</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my_aty">myAty</string>
+    <string name="title_activity_baty">BAty</string>
+    <string name="title_activity_caty">CAty</string>
+
+    <string name="choseNumber">"你选择的数字是："</string>
+    <string name="changeTextSize">"长按此处设置字体大小"</string>
+
+    <string name="txtcolor_settings">textcolor</string>
+    <string name="txtred">red</string>
+    <string name="txtblack">black</string>
+    <string name="txtyellow">yellow</string>
+
+    <string name="bgcolor_settings">背景颜色</string>
+    <string name="bgblue">blue</string>
+    <string name="bggreen">green</string>
+    <string name="bgwhite">white</string>
+
+    <string name="font_settings">Font</string>
+    <string name="font_10">10号</string>
+    <string name="font_12">12号</string>
+    <string name="font_14">14号</string>
+    <string name="font_16">16号</string>
+
+    <string name="bartest">测试</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_eaty">EAty</string>
+    <string name="title_activity_faty">FAty</string>
+
+
+</resources>

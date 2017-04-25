@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="choseNumber">"Your number choice is :"</string>
+    <string name="changeTextSize">"Press long here to change font"</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<clip xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/practices_two"
+    android:clipOrientation="horizontal"
+    android:gravity="center_vertical">
+
+    <!--截取片段-->
+
+</clip>

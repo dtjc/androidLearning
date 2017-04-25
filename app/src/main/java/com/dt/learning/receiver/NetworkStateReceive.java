@@ -19,12 +19,7 @@ public class NetworkStateReceive extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager connManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info=connManager.getActiveNetworkInfo();
-        if (info == null){
-            Log.e("Info","null+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            return;
-        }else {
-            Log.e("info","not null+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        }
+        if (info == null) return;
         int type=info.getType();
         if (type==ConnectivityManager.TYPE_WIFI)
             Util.showToast("正在使用wifi");

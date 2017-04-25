@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
+//            if ()
             String name = data.getStringExtra("btnName");
             Button btn =(Button) findViewById(R.id.activity_main_btn_aar_test);
             btn.setText(name);

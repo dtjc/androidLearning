@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/queryByName"
+        android:title="按名字查询"/>
+    <item
+        android:id="@+id/queryByAge"
+        android:title="按年龄查询"/>
+    <item
+        android:id="@+id/queryByBirthday"
+        android:title="按生日查询"/>
+</menu>

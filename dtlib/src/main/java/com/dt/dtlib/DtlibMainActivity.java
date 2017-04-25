@@ -39,7 +39,9 @@ public class DtlibMainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setResult(0);
+        Intent intent = new Intent();
+        intent.putExtra("btnName",getPackageName());
+        setResult(0,intent);
         super.onBackPressed();
     }
 }
