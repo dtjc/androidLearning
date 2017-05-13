@@ -2,15 +2,22 @@ package com.dt.learning.activities;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.dt.learning.R;
 import com.dt.learning.receiver.NetworkStateReceive;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private NetworkStateReceive networkStateReceive;
 
     @Override
@@ -60,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
     public void aarTestClick(View view){
         Intent intent = new Intent(this,com.dt.dtlib.DtlibMainActivity.class);
         startActivityForResult(intent,1);
+    }
+
+    public void takePhoto(View view){
+        File file = new File(getExternalCacheDir(),"images");
+//        File file = new File(getCacheDir(),"pics");
+        if (!file.exists()) file.mkdirs();
+        File image = new File(file,"pic.jpg");
+        Uri uri = FileProvider.getUriForFile(this,"com.dt.learning.fileprovider",image);
+        Log.e(TAG, "takePhoto:uri "+uri.toString() );
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        startActivityForResult(intent,100);
     }
 
     @Override
