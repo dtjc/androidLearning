@@ -20,7 +20,7 @@ public class MessengerService extends Service {
             Message msgToClient=Message.obtain(msgFromClient);
             switch (msgFromClient.what){
                 case CREATE_USER:
-                    msgToClient.what=CREATE_USER;
+//                    msgToClient.what=CREATE_USER;
                     Bundle fromClient=msgFromClient.getData();
                     User user=new User();
                     user.setName(fromClient.getString("name"));

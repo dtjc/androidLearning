@@ -60,6 +60,7 @@ public class MyCircleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //处理padding
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
         int paddingTop = getPaddingTop();
@@ -68,10 +69,9 @@ public class MyCircleView extends View {
         int height = getHeight() - paddingTop - paddingBottom;
         int dia = Math.max(width,height);
         mPaint.setStyle(Paint.Style.FILL);
-        RectF rect = new RectF(paddingLeft,paddingTop,paddingLeft+dia,paddingTop+dia);
         mPaint.setColor(mLeftColor);
-        canvas.drawArc(rect,90,180,true,mPaint);
+        canvas.drawArc(paddingLeft,paddingTop,paddingLeft+dia,paddingTop+dia,90,180,true,mPaint);
         mPaint.setColor(mRightColor);
-        canvas.drawArc(rect,270,180,true,mPaint);
+        canvas.drawArc(paddingLeft,paddingTop,paddingLeft+dia,paddingTop+dia,270,180,true,mPaint);
     }
 }

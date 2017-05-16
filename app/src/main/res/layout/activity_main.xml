@@ -80,13 +80,20 @@
             android:layout_height="wrap_content"
             android:text="takePhoto"
             android:textAllCaps="false"
-            android:onClick="takePhoto"/>
+            android:onClick="takePhotoClick"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="navigation"
+            android:onClick="navigationClick"/>
     </LinearLayout>
 
 
     <com.dt.learning.customerview.MyCircleView
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:padding="20dp"
         app:left_color="#bad8cb"
         app:right_color="#00ff00"/>
 
