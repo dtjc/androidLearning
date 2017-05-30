@@ -34,7 +34,7 @@ public class SocketActivity extends AppCompatActivity {
     private PrintWriter mPrintWriter;
     private Button btnSend;
 
-    private Handler mHander=new Handler(){
+    private  Handler mHander=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
