@@ -38,7 +38,6 @@ public class MyCircleView extends View {
         typedArray.recycle();
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

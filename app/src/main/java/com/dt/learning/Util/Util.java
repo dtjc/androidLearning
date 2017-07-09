@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -56,7 +57,15 @@ public class Util {
                         long t2 = System.nanoTime();
                         Log.i("HttpResponse",String.format("Received response for %s in %.1fms%n%s",
                                 response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-                        return response;
+                        String content = response.body().string();
+                        MediaType mediaType = response.body().contentType();
+                        Log.i("response code",String.valueOf(response.code()));
+                        Log.i("response body",content);
+                        Log.i("response message",response.message());
+                        return response.newBuilder()
+                                .body(okhttp3.ResponseBody.create(mediaType, content))
+                                .build();
+//                        return response;
                     }
                 })
                 .build();
@@ -65,7 +74,7 @@ public class Util {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl("http://192.168.1.145:8080/test2/")
+                .baseUrl("http://192.168.1.102:8080/info/")
                 .build();
     }
 }

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Scroller;
+
 import com.dt.learning.R;
 import com.dt.learning.customerview.MyCircleView;
 import com.dt.learning.receiver.NetworkStateReceive;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
     }
+
 
     private void init(){
         IntentFilter intentFilter=new IntentFilter();
@@ -118,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void navigationClick(View view){
         Intent intent = new Intent(this,NavigationActivity.class);
+        startActivity(intent);
+    }
+
+    public void showSysArgs(View view){
+        Intent intent = new Intent(this,SysArgsActivity.class);
         startActivity(intent);
     }
 

@@ -94,6 +94,13 @@
             android:textAllCaps="false"
             android:text="showWindow"
             android:onClick="showWindowClick"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="sysArgs"
+            android:onClick="showSysArgs"/>
     </LinearLayout>
 
 

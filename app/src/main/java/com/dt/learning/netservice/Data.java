@@ -15,12 +15,12 @@ import retrofit2.http.Query;
  */
 
 public interface Data {
-    @POST("test")
+    @POST("getUser")
     Call<User> getUserViaPost();
 
-    @GET("test")
+    @GET("getUser")
     Call<User> getUserViaGet();
 
-    @GET("test")
+    @GET("getUser")
     Observable<User> getUserWithRx();
 }

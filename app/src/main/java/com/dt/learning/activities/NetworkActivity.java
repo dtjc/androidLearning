@@ -13,6 +13,8 @@ import com.dt.learning.aidl.User;
 import com.dt.learning.netservice.Data;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -50,14 +52,24 @@ public class NetworkActivity extends AppCompatActivity {
                         .enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
-                                User user=response.body();
-                                tvReGet.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
-                                Log.e("responseCode",String.valueOf(response.code()));
-                                Log.e("responseMsg",response.message());
-                                okhttp3.Headers headers = response.headers();
-                                for (int i=0;i<headers.size();i++){
-                                    Log.e(headers.name(i),headers.value(i));
+                                if (response.isSuccessful()){
+                                    User user=response.body();
+                                    tvReGet.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
+                                    Log.e("responseCode",String.valueOf(response.code()));
+                                    Log.e("responseMsg",response.message());
+                                    okhttp3.Headers headers = response.headers();
+                                    for (int i=0;i<headers.size();i++){
+                                        Log.e(headers.name(i),headers.value(i));
+                                    }
+                                }else {
+                                    Util.showToast(String.valueOf(response.code()));
+                                    try {
+                                        Log.e("error body",response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
                             }
 
                             @Override
