@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.dt.learning"
         minSdkVersion 21
@@ -37,5 +37,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'io.netty:netty:4.0.0.Alpha8'
+    compile 'com.github.romainguy:ViewServer:017c01cd512cac3ec054d9eee05fc48c5a9d2def'
     testCompile 'junit:junit:4.12'
 }

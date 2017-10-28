@@ -1,0 +1,172 @@
+[openamp.d] android/webkit/WebView.loadUrl(Ljava/lang/String;)V
+
+[openamp.d] android/webkit/WebView.loadUrl:(Ljava/lang/String;)V1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/client/ResponseHandler;Lorg/apache/http/protocol/HttpContext;)Ljava/lang/Object;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/client/ResponseHandler;Lorg/apache/http/protocol/HttpContext;)Ljava/lang/Object;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/client/methods/HttpUriRequest;)Lorg/apache/http/HttpResponse;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/client/methods/HttpUriRequest;)Lorg/apache/http/HttpResponse;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/client/ResponseHandler;)Ljava/lang/Object;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/client/ResponseHandler;)Ljava/lang/Object;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;1
+
+[openamp.d] com/squareup/okhttp/OkHttpClient.newCall(Lcom/squareup/okhttp/Request;)Lcom/squareup/okhttp/Call;
+
+[openamp.d] com/squareup/okhttp/OkHttpClient.newCall:(Lcom/squareup/okhttp/Request;)Lcom/squareup/okhttp/Call;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/client/ResponseHandler;)Ljava/lang/Object;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/client/ResponseHandler;)Ljava/lang/Object;1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/client/ResponseHandler;Lorg/apache/http/protocol/HttpContext;)Ljava/lang/Object;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/client/methods/HttpUriRequest;Lorg/apache/http/client/ResponseHandler;Lorg/apache/http/protocol/HttpContext;)Ljava/lang/Object;1
+
+[openamp.d] android/webkit/WebView.loadUrl(Ljava/lang/String;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)V
+
+[openamp.d] android/webkit/WebView.loadUrl:(Ljava/lang/String;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)V1
+
+[openamp.d] org/apache/http/client/HttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;)Lorg/apache/http/HttpResponse;
+
+[openamp.d] org/apache/http/client/HttpClient.execute:(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;)Lorg/apache/http/HttpResponse;1
+
+[openamp.d] retransform classes: [class java.lang.ProcessBuilder]
+[openamp.d] transforming java/lang/ProcessBuilder
+[openamp.d] transforming java/lang/ProcessBuilder
+[openamp.d] transforming java/lang/ProcessBuilder
+[openamp.d] transforming com/android/dx/command/dexer/Main
+[openamp.e] transform class error
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.android.dx.command.dexer.Main$MainDexListFilter
+	at com.hmt.org.objectweb.asm.ClassWriter.getCommonSuperClass(ClassWriter.java:1719)
+	at com.hmt.org.objectweb.asm.ClassWriter.getMergedType(ClassWriter.java:1689)
+	at com.hmt.org.objectweb.asm.Frame.merge(Frame.java:1426)
+	at com.hmt.org.objectweb.asm.Frame.merge(Frame.java:1374)
+	at com.hmt.org.objectweb.asm.MethodWriter.visitMaxs(MethodWriter.java:1475)
+	at com.hmt.org.objectweb.asm.ClassReader.readCode(ClassReader.java:1567)
+	at com.hmt.org.objectweb.asm.ClassReader.readMethod(ClassReader.java:1017)
+	at com.hmt.org.objectweb.asm.ClassReader.accept(ClassReader.java:693)
+	at com.hmt.org.objectweb.asm.ClassReader.accept(ClassReader.java:506)
+	at com.hmt.analytics.agent.ClassTransformer.transform(ClassTransformer.java:32)
+	at sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:428)
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:763)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:467)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:73)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:368)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:362)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:361)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at com.android.build.gradle.BasePlugin$1.lambda$buildFinished$0(BasePlugin.java:350)
+	at com.android.builder.profile.ThreadRecorder.record(ThreadRecorder.java:81)
+	at com.android.build.gradle.BasePlugin$1.buildFinished(BasePlugin.java:326)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.event.DefaultListenerManager$ListenerDetails.dispatch(DefaultListenerManager.java:249)
+	at org.gradle.internal.event.DefaultListenerManager$ListenerDetails.dispatch(DefaultListenerManager.java:229)
+	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:44)
+	at org.gradle.internal.event.DefaultListenerManager$EventBroadcast$ListenerDispatch.dispatch(DefaultListenerManager.java:221)
+	at org.gradle.internal.event.DefaultListenerManager$EventBroadcast$ListenerDispatch.dispatch(DefaultListenerManager.java:209)
+	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:44)
+	at org.gradle.internal.event.BroadcastDispatch.dispatch(BroadcastDispatch.java:79)
+	at org.gradle.internal.event.BroadcastDispatch.dispatch(BroadcastDispatch.java:30)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy15.buildFinished(Unknown Source)
+	at org.gradle.initialization.DefaultGradleLauncher.doBuild(DefaultGradleLauncher.java:125)
+	at org.gradle.initialization.DefaultGradleLauncher.getBuildAnalysis(DefaultGradleLauncher.java:107)
+	at org.gradle.launcher.exec.GradleBuildController.configure(GradleBuildController.java:79)
+	at org.gradle.tooling.internal.provider.runner.ClientProvidedBuildActionRunner.run(ClientProvidedBuildActionRunner.java:60)
+	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+	at org.gradle.tooling.internal.provider.runner.RunAsBuildOperationBuildActionRunner$1.execute(RunAsBuildOperationBuildActionRunner.java:43)
+	at org.gradle.tooling.internal.provider.runner.RunAsBuildOperationBuildActionRunner$1.execute(RunAsBuildOperationBuildActionRunner.java:40)
+	at org.gradle.internal.Transformers$4.transform(Transformers.java:169)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:106)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:56)
+	at org.gradle.tooling.internal.provider.runner.RunAsBuildOperationBuildActionRunner.run(RunAsBuildOperationBuildActionRunner.java:40)
+	at org.gradle.tooling.internal.provider.runner.SubscribableBuildActionRunner.run(SubscribableBuildActionRunner.java:75)
+	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:41)
+	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:26)
+	at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:75)
+	at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:49)
+	at org.gradle.tooling.internal.provider.ServicesSetupBuildActionExecuter.execute(ServicesSetupBuildActionExecuter.java:44)
+	at org.gradle.tooling.internal.provider.ServicesSetupBuildActionExecuter.execute(ServicesSetupBuildActionExecuter.java:29)
+	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:67)
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:47)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:26)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:34)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:74)
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.call(ForwardClientInput.java:72)
+	at org.gradle.util.Swapper.swap(Swapper.java:38)
+	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:72)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:55)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:60)
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:72)
+	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:36)
+	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:120)
+	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:50)
+	at org.gradle.launcher.daemon.server.DaemonStateCoordinator$1.run(DaemonStateCoordinator.java:297)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:54)
+	at org.gradle.internal.concurrent.StoppableExecutorImpl$1.run(StoppableExecutorImpl.java:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+[openamp.d] transforming com/android/dx/command/dexer/Main
+[openamp.e] transform class error
+java.lang.RuntimeException: java.lang.ClassNotFoundException: com.android.dx.command.dexer.Main$MainDexListFilter
+	at com.hmt.org.objectweb.asm.ClassWriter.getCommonSuperClass(ClassWriter.java:1719)
+	at com.hmt.org.objectweb.asm.ClassWriter.getMergedType(ClassWriter.java:1689)
+	at com.hmt.org.objectweb.asm.Frame.merge(Frame.java:1426)
+	at com.hmt.org.objectweb.asm.Frame.merge(Frame.java:1374)
+	at com.hmt.org.objectweb.asm.MethodWriter.visitMaxs(MethodWriter.java:1475)
+	at com.hmt.org.objectweb.asm.ClassReader.readCode(ClassReader.java:1567)
+	at com.hmt.org.objectweb.asm.ClassReader.readMethod(ClassReader.java:1017)
+	at com.hmt.org.objectweb.asm.ClassReader.accept(ClassReader.java:693)
+	at com.hmt.org.objectweb.asm.ClassReader.accept(ClassReader.java:506)
+	at com.hmt.analytics.agent.ClassTransformer.transform(ClassTransformer.java:32)
+	at sun.instrument.TransformerManager.transform(TransformerManager.java:188)
+	at sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:428)
+	at sun.instrument.InstrumentationImpl.retransformClasses0(Native Method)
+	at sun.instrument.InstrumentationImpl.retransformClasses(InstrumentationImpl.java:144)
+	at com.hmt.analytics.agent.TransformAgent.premain(TransformAgent.java:60)
+	at com.hmt.analytics.agent.TransformAgent.agentmain(TransformAgent.java:25)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:386)
+	at sun.instrument.InstrumentationImpl.loadClassAndCallAgentmain(InstrumentationImpl.java:411)
+
+[openamp.d] transforming java/lang/ProcessBuilder
+[openamp.d] transforming java/lang/ProcessBuilder
+[openamp.d] Execute: [C:\Program Files\Android\Android Studio\jre\jre\bin\java.exe, "-javaagent:D:\others\gradle\caches\jars-2\8bhq9ptgs6qc7mxgwuektn6667dtwol\hmt-agent.jar", -jar, D:\project\dialer\app\src\main\Xml2Java.jar, .]
+[openamp.d] Execute: [D:\sources\SDK\build-tools\25.0.0\aapt.exe, package, -f, --no-crunch, -I, D:\sources\SDK\platforms\android-23\android.jar, -M, \\?\D:\project\dialer\app\build\intermediates\manifests\full\online\debug\AndroidManifest.xml, -S, D:\project\dialer\app\build\intermediates\res\merged\online\debug, -m, -J, \\?\D:\project\dialer\app\build\generated\source\r\online\debug, -F, D:\project\dialer\app\build\intermediates\res\resources-online-debug.ap_, -D, \\?\D:\project\dialer\app\build\intermediates\multi-dex\online\debug\manifest_keep.txt, --debug-mode, --custom-package, com.cootek.smartdialer, -0, apk, --output-text-symbols, \\?\D:\project\dialer\app\build\intermediates\symbols\online\debug, --no-version-vectors]

@@ -4,4 +4,9 @@
         <attr name="left_color" format="color" />
         <attr name="right_color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="RingCircleView">
+        <attr name="in_radius" format="dimension" />
+        <attr name="out_radius" format="dimension" />
+    </declare-styleable>
 </resources>

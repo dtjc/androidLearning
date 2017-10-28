@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class IPCActivity extends AppCompatActivity {
         private IBinder.DeathRecipient recipient=new IBinder.DeathRecipient() {
             @Override
             public void binderDied() {
+                Log.e("ServiceConnection","binderDied()");
                 if (aidlInterface==null) return;
                 aidlInterface.asBinder().unlinkToDeath(recipient,0);
                 aidlInterface=null;
@@ -49,6 +51,7 @@ public class IPCActivity extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e("ServiceConnection","onServiceConnected()");
             aidlInterface=IFirstAidlInterface.Stub.asInterface(service);
             //设置死亡代理
             try {
@@ -138,7 +141,6 @@ public class IPCActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override

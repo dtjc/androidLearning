@@ -3,6 +3,7 @@ package com.dt.learning.activities;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,7 +39,13 @@ public class AnimationActivity extends AppCompatActivity {
         controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
 
         rcy = (RecyclerView)findViewById(R.id.content_animation_rcy_layout_anim);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this){
+            @Override
+            public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+                super.onMeasure(recycler, state, widthSpec, heightSpec);
+                Log.e("rcy_item_measure","test");
+            }
+        };
         rcy.setLayoutManager(linearLayoutManager);
         MyAdapter adapter=new MyAdapter();
         rcy.setLayoutAnimation(controller);
@@ -65,9 +73,9 @@ public class AnimationActivity extends AppCompatActivity {
         view.startAnimation(anim);
     }
 
-    public void attrAnimStart(View view){
+    public void attrAnimStart(final View view){
         if (mAttrAnimActive)    return;
-        ObjectAnimator objectAnimator=ObjectAnimator.ofFloat(view,"translationX",0,300);
+        ObjectAnimator objectAnimator=ObjectAnimator.ofFloat(view,"translationX",0,3000);
         objectAnimator.setDuration(2000);
         objectAnimator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -87,6 +95,14 @@ public class AnimationActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animator animation) {}
+        });
+        objectAnimator.setInterpolator(new TimeInterpolator() {
+            @Override
+            public float getInterpolation(float input) {
+
+                Log.e("animator",String.valueOf(view.getX()));
+                return input;
+            }
         });
         objectAnimator.start();
     }

@@ -53,7 +53,7 @@
         tools:layout_editor_absoluteY="111dp"
         tools:layout_editor_absoluteX="0dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.dt.learning.customerview.TestRecyclerView
         android:id="@+id/content_animation_rcy_layout_anim"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -66,7 +66,7 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"></android.support.v7.widget.RecyclerView>
+        tools:layout_constraintTop_creator="1" />
 
     <ImageView
         android:id="@+id/content_animation_iv_set_anim"
@@ -76,5 +76,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/drawable2" />
+
+    <com.dt.learning.customerview.RingCircleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:in_radius = "30dp"
+        app:out_radius = "50dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/content_animation_rcy_layout_anim"
+        app:layout_constraintTop_toBottomOf="@+id/content_animation_iv_view_anim" />
 
 </android.support.constraint.ConstraintLayout>

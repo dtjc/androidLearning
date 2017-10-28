@@ -22,8 +22,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     List<String> list=new ArrayList<>();
 
     public MyAdapter(){
-        for (int i=0;i<10;i++){
-            list.add(Util.randomLetter(8));
+        for (int i=0;i<1000;i++){
+            list.add(String.valueOf(i));
         }
     }
 

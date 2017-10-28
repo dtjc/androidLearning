@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="animation"
-            android:onClick="animationClick"/>
+            android:onClick="animationClick" />
 
         <Button
             android:layout_width="wrap_content"
@@ -103,6 +103,54 @@
             android:onClick="showSysArgs"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="layoutTest"
+            android:onClick="layoutTestClick"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SVG"
+            android:onClick="SVGClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#ffffff">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff">
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.dt.learning.customerview.StrokeTextView
+            android:id="@+id/strokeTv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="test" />
+    </LinearLayout>
 
     <com.dt.learning.customerview.MyCircleView
         android:id="@+id/circle_view"

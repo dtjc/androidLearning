@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
@@ -215,23 +216,41 @@ public class MainActivity extends AppCompatActivity {
         parameter=new PopupWindowParameter();
         ibtA= (ImageButton) findViewById(R.id.ibtA);
         ibtA.setOnClickListener(new View.OnClickListener() {
-//            PopupWindow popupWindow;
-
             @Override
             public void onClick(View v) {
                 if(parameter.getPopupWindow()!=null){
                     parameter.getPopupWindow().dismiss();
                 }
-                View root=MainActivity.this.getLayoutInflater().inflate(R.layout.test1,null);
+                final View root=MainActivity.this.getLayoutInflater().inflate(R.layout.test1,null);
                 final PopupWindow popupWindow=new PopupWindow(root,500,500);
-                popupWindow.showAsDropDown(findViewById(R.id.ibtA));
                 parameter.setPopupWindow(popupWindow);
-                root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                popupWindow.setFocusable(true);
+                popupWindow.setOutsideTouchable(true);
+                root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popupWindow.dismiss();
                     }
                 });
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        numberPicker.setValue(49);
+                        ImageView iv = new ImageView(MainActivity.this);
+                        iv.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,R.drawable.asd));
+                        popupWindow.setContentView(iv);
+                        popupWindow.showAsDropDown(root);
+                    }
+                });
+                popupWindow.showAsDropDown(findViewById(R.id.ibtA));
+
+//                parameter.setPopupWindow();
+//                root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        popupWindow.dismiss();
+//                    }
+//                });
             }
         });
 

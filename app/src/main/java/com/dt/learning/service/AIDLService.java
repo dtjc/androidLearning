@@ -1,11 +1,15 @@
 package com.dt.learning.service;
 
+import android.app.ActivityManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
+
 import com.dt.learning.aidl.IFirstAidlInterface;
 import com.dt.learning.aidl.User;
 
@@ -18,6 +22,16 @@ public class AIDLService extends Service {
             User user=new User();
             user.setName(name);
             user.setAge(age);
+            int pid = android.os.Process.myPid();//获取进程pid
+            String processName = null;
+            ActivityManager am = (ActivityManager)getBaseContext().getSystemService(Context.ACTIVITY_SERVICE);//获取系统的ActivityManager服务
+            for (ActivityManager.RunningAppProcessInfo appProcess : am.getRunningAppProcesses()){
+                if(appProcess.pid == pid){
+                    processName = appProcess.processName;
+                    break;
+                }
+            }
+            Log.e("processname",processName);
             return user;
         }
     };

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Process;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dt.learning.R;
+import com.dt.learning.Util.Constant;
+import com.dt.learning.Util.Util;
 import com.dt.learning.service.TCPService;
+import com.dt.learning.thread.CheckConnectionRunnable;
+import com.dt.learning.thread.SocketListener;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,24 +27,36 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.channels.SocketChannel;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class SocketActivity extends AppCompatActivity {
-    private final static int RECEIVE_MSG_FROM_SERVICE=1;
-    private final static int MESSAGE_SOCKET_CONNECTED=2;
+public class SocketActivity extends AppCompatActivity implements SocketListener{
+    private final static int RECEIVE_MSG_FROM_SERVICE = 2;
+    private final static int MESSAGE_SOCKET_CONNECTED = 1;
+
+    private final static int THIS_ID = 1;
+    private final static int TO_ID = 2;
 
     private EditText edtMsgToServer;
     private TextView tvMsgFromServer;
     private Socket mClientSocket;
     private PrintWriter mPrintWriter;
+    private BufferedReader br;
     private Button btnSend;
+    private volatile boolean isClosed = false;
 
-    private  Handler mHander=new Handler(){
+    private Handler mHander = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case RECEIVE_MSG_FROM_SERVICE:
-                    tvMsgFromServer.setText((String)msg.obj);
+                    tvMsgFromServer.setText((String) msg.obj);
                     break;
                 case MESSAGE_SOCKET_CONNECTED:
                     btnSend.setEnabled(true);
@@ -56,73 +73,159 @@ public class SocketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_socket);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        edtMsgToServer=(EditText)findViewById(R.id.content_socket_edt_to_server);
-        tvMsgFromServer=(TextView)findViewById(R.id.content_socket_tv_from_server);
-        btnSend=(Button)findViewById(R.id.content_socket_btn_send);
-        Intent service=new Intent(this, TCPService.class);
-        startService(service);
+        edtMsgToServer = (EditText) findViewById(R.id.content_socket_edt_to_server);
+        tvMsgFromServer = (TextView) findViewById(R.id.content_socket_tv_from_server);
+        btnSend = (Button) findViewById(R.id.content_socket_btn_send);
+//        Intent service = new Intent(this, TCPService.class);
+//        startService(service);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                connectTCPService();
+                while (!SocketActivity.this.isFinishing()) {
+                    ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+                    isClosed = false;
+                    connectToServerWithSocket(ses);
+                    if (!ses.isShutdown()){
+                        ses.shutdownNow();
+                    }
+                    while (!ses.isTerminated()){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }).start();
-
     }
 
-    private void connectTCPService(){
-        Socket socket=null;
-        while (socket==null){
+//    private void connectToServerWithNio(){
+//        SocketChannel sc = SocketChannel.open();
+//        sc.configureBlocking(false);
+//        sc.connect(new InetSocketAddress(Constant.SERVER_IP,8688));
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ByteBuffer buffer = ByteBuffer.allocate(512);
+//                sc.read(buffer);
+//            }
+//        }).start();
+//    }
+
+    private void connectToServerWithSocket(ScheduledExecutorService ses) {
+        Socket socket = null;
+        while (socket == null && !isFinishing()) {
             try {
-                socket=new Socket("localhost",8688);
-                mClientSocket=socket;
-                mPrintWriter=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())),true);
+                socket = new Socket(Constant.SERVER_IP, 8688);
+                btnSend.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Util.showToast("socket 连接中");
+                    }
+                });
+                mClientSocket = socket;
+                mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                mPrintWriter.println(THIS_ID);
                 mHander.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
             } catch (IOException e) {
-                SystemClock.sleep(1000);
+
+                    btnSend.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Util.showToast("socket 连接出错");
+                        }
+                    });
+
                 e.printStackTrace();
             }
         }
-        try{
-            BufferedReader br=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            while (!this.isFinishing()){
-                String msg=br.readLine();
-                if (msg!=null)
-                    mHander.obtainMessage(RECEIVE_MSG_FROM_SERVICE,msg).sendToTarget();
-                else break;
+
+        try {
+            if (socket != null){
+                char[] chars = new char[512];
+                br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                ses.scheduleWithFixedDelay(new CheckConnectionRunnable(socket,this),5,5, TimeUnit.SECONDS);
+                while (!this.isFinishing() && !isClosed) {
+                    if (!br.ready()){
+                        continue;
+                    }
+                    int read = br.read(chars);
+                    Log.e("read", String.valueOf(read));
+                    String msg = new String(chars,0,read - 1);
+                    if (msg.startsWith("received:")){
+                        btnSend.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Util.showToast("发送成功");
+
+                            }
+                        });
+                    }else {
+                        msg = msg.substring(msg.indexOf(":") + 1, msg.length());
+                        mHander.obtainMessage(RECEIVE_MSG_FROM_SERVICE, msg).sendToTarget();
+                        Log.e("msg from server", msg);
+                    }
+                }
             }
-            Log.e("execute","printwriter close");
-            if (mPrintWriter!=null) mPrintWriter.close();
-            if (br!=null)   br.close();
-            if (socket!=null)   socket.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            ses.shutdownNow();
+            closeSocket();
         }
     }
 
-    public void sendClick(View view){
-        String msg=edtMsgToServer.getText().toString();
-        if (msg!=null&&!msg.equals("")&&mPrintWriter!=null){
-            mPrintWriter.println(msg);
+    public void sendClick(View view) {
+        String txt = edtMsgToServer.getText().toString();
+        if (!txt.equals("") && mPrintWriter != null) {
+            final String msg = String.valueOf(TO_ID) + ":" + txt;
+            if (msg.getBytes().length > 512){
+                Util.showToast("消息过长");
+                return;
+            }
+            Util.getSingleThreadEs().execute(new Runnable() {
+                @Override
+                public void run() {
+                    mPrintWriter.println(msg);
+                }
+            });
             edtMsgToServer.setText("");
         }
     }
 
     @Override
     protected void onDestroy() {
+        Log.e("SocketActivity", "onDestroy");
+        closeSocket();
+        super.onDestroy();
+    }
 
+    @Override
+    public void finish() {
+        Log.e("SocketActivity", "finish");
+        super.finish();
+    }
+
+    private void closeSocket() {
         try {
-//            if (mPrintWriter!=null) mPrintWriter.close();
-            if (mClientSocket!=null) {
-                mClientSocket.shutdownInput();
+            if (mClientSocket != null && !mClientSocket.isClosed()) {
                 mClientSocket.close();
             }
-
+            if (br != null) {
+                br.close();
+            }
+            if (mPrintWriter != null) {
+                mPrintWriter.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        super.onDestroy();
 
     }
 
+    @Override
+    public void callBack() {
+        isClosed = true;
+    }
 }

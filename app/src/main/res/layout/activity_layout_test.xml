@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp"
+    android:clipToPadding="false"
+    tools:context="com.dt.learning.activities.LayoutTestActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:background="@color/red"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        android:elevation="100dp"
+        android:onClick="btn"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <com.dt.learning.customerview.TestTextView
+            android:id="@+id/tvWindowTest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Material design test"
+            android:elevation="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lly">
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"/>
+
+        <com.dt.learning.customerview.TestTextView
+            android:id="@+id/testTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="abcef"/>
+    </LinearLayout>
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="abcd" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="matchparent test"/>
+
+        <TextView
+            android:id="@+id/gonetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123456adsf"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/abcdtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="20dp"
+            android:text="Material Desegn Test"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/abcdtv"/>
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="top right"
+            android:layout_gravity="top"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bottom left"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+</LinearLayout>

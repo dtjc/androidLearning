@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/hexagon">
+    <target
+        android:animation="@animator/hexagon_bottom_to_top"
+        android:name="bottom"/>
+    <target
+        android:animation="@animator/hexagon_top_to_bottom"
+        android:name="top"/>
+</animated-vector>

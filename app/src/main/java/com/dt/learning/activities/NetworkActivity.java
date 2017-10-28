@@ -1,6 +1,7 @@
 package com.dt.learning.activities;
 
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -86,8 +87,9 @@ public class NetworkActivity extends AppCompatActivity {
                         .enqueue(new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
-                                User user=response.body();
-                                tvRePost.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
+                                Util.showToast(String.valueOf(response.code()));
+//                                User user=response.body();
+//                                tvRePost.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
                             }
 
                             @Override

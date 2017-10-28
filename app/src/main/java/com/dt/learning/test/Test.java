@@ -14,4 +14,14 @@ public class Test {
     public static User getStaticUser(){
         return staticUser;
     }
+    private int k;
+
+    public int getK() {
+        return k;
+    }
+
+    public void setK(int k) {
+        this.k = k;
+    }
+
 }

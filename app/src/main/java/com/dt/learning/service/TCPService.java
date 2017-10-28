@@ -16,12 +16,15 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class TCPService extends Service {
 
     //这个service是会发生内存泄露的，但是为了模仿服务端，因此不考虑
 
-    private boolean mIsDestroyed=false;
+    private volatile boolean mIsDestroyed=false;
     public TCPService() {}
 
     @Override
@@ -61,16 +64,44 @@ public class TCPService extends Service {
         PrintWriter out=new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())),true);
         out.println("欢迎来到聊天室");
         while (!mIsDestroyed){
-            String str=in.readLine();
-            if (str==null)  break;
-            Log.e("msgFromClient",str);
-            String msg=Util.randomLetter(10);
-            out.println(msg);
+            if (in.ready()){
+                String str=in.readLine();
+                Log.e("msg from client",str);
+                if (str==null)  break;
+                String msg=Util.randomLetter(10);
+                Log.e("msg to client",msg);
+                out.println(msg);
+            }
+
+            try {
+                client.sendUrgentData(0xff);
+            }catch (IOException e){
+                Log.e("exception","close socket");
+                closeSocket(client);
+                in.close();
+                out.close();
+                break;
+            }
         }
-        if (in!=null)   in.close();
-        if (out!=null)  out.close();
-        if (client!=null)   client.close();
-        Log.e("stopTcpService","stop");
+    }
+
+    private void closeSocket(Socket socket){
+        if (socket == null){
+            return;
+        }
+        try {
+            if (!socket.isInputShutdown()){
+                socket.shutdownInput();
+            }
+            if (!socket.isOutputShutdown()){
+                socket.shutdownOutput();
+            }
+            if (!socket.isClosed()){
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,6 +112,7 @@ public class TCPService extends Service {
 
     @Override
     public void onDestroy() {
+        Log.e("TCPService","onDestroy");
         mIsDestroyed=true;
         super.onDestroy();
     }
