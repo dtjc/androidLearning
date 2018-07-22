@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SensorActivity">
+
+    <TextView
+        android:id="@+id/item_azimuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="azimuth: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/item_pitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pitch: "
+        app:layout_constraintEnd_toEndOf="@+id/item_azimuth"
+        app:layout_constraintTop_toBottomOf="@+id/item_azimuth" />
+
+    <TextView
+        android:id="@+id/item_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="roll: "
+        app:layout_constraintEnd_toEndOf="@+id/item_azimuth"
+        app:layout_constraintTop_toBottomOf="@+id/item_pitch" />
+
+    <TextView
+        android:id="@+id/value_azimuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/item_azimuth"
+        app:layout_constraintStart_toEndOf="@id/item_azimuth"/>
+
+    <TextView
+        android:id="@+id/value_pitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/item_pitch"
+        app:layout_constraintStart_toEndOf="@id/item_pitch"/>
+
+    <TextView
+        android:id="@+id/value_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/item_roll"
+        app:layout_constraintStart_toEndOf="@id/item_roll"/>
+
+    <TextView
+        android:id="@+id/item_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/value_roll"
+        app:layout_constraintEnd_toEndOf="@id/item_azimuth"
+        android:text="angle: "/>
+
+    <TextView
+        android:id="@+id/value_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_roll"
+        app:layout_constraintStart_toEndOf="@id/item_angle"/>
+</android.support.constraint.ConstraintLayout>

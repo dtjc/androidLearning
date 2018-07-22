@@ -1,5 +1,6 @@
 package com.dt.learning.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -18,11 +19,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dt.learning.R;
+import com.dt.learning.Util.TestEvent;
 import com.dt.learning.Util.Util;
 import com.dt.learning.aidl.IFirstAidlInterface;
 import com.dt.learning.aidl.User;
 import com.dt.learning.service.AIDLService;
 import com.dt.learning.service.MessengerService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -76,6 +81,7 @@ public class IPCActivity extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName name) {}
     };
 
+    @SuppressLint("HandlerLeak")
     Messenger mMessenger=new Messenger(new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -93,6 +99,7 @@ public class IPCActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ipc);
@@ -116,6 +123,10 @@ public class IPCActivity extends AppCompatActivity {
             }
         });
     }
+    @Subscribe
+    public void handleEvent(TestEvent event){
+        Log.e("IPCActivity",event.msg);
+    }
 
     public void aidlClick(final View view){
         try {
@@ -133,6 +144,7 @@ public class IPCActivity extends AppCompatActivity {
         bundle.putString("name",Util.randomLetter(5));
         bundle.putInt("age",Util.randomAge());
         msgFromClient.setData(bundle);
+//        msgFromClient.setTarget();
         msgFromClient.replyTo=mMessenger;
         if (mService!=null){
             try {
@@ -146,6 +158,7 @@ public class IPCActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         if (aidlConn!=null) unbindService(aidlConn);
         if (msgConn!=null)  unbindService(msgConn);
     }

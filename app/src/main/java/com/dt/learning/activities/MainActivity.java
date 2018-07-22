@@ -1,5 +1,6 @@
 package com.dt.learning.activities;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +13,9 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -25,9 +27,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dt.learning.R;
+import com.dt.learning.Util.TestEvent;
+import com.dt.learning.Util.Util;
 import com.dt.learning.customerview.MyCircleView;
 import com.dt.learning.customerview.StrokeTextView;
 import com.dt.learning.receiver.NetworkStateReceive;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 
@@ -43,7 +50,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashActivity.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventBus.getDefault().register(this);
         init();
+    }
+
+    @Subscribe
+    public void handleEvent(TestEvent event){
+        Log.e("MainActivity",event.msg);
     }
 
 
@@ -113,11 +126,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void drawableClick(View view) {
-        startActivity(new Intent(this, DrawableActivity.class));
+//        startActivity(new Intent(this, DrawableActivity.class));
+        startActivityForResult(new Intent(this, DrawableActivity.class),1000);
     }
 
     public void animationClick(View view) {
-        startActivity(new Intent(this, AnimationActivity.class));
+        startActivity(new Intent(this, AnimationActivity.class),
+                ActivityOptions.makeScaleUpAnimation(view,0,0,100,100).toBundle());
     }
 
     public void filePathClick(View view) {
@@ -207,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this,SVGActivity.class));
     }
 
+    public void SensorCLick(View view){
+        startActivity(new Intent(this,SensorActivity.class));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -214,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
             String name = data.getStringExtra("btnName");
             Button btn = (Button) findViewById(R.id.activity_main_btn_aar_test);
             btn.setText(name);
+        }else if (requestCode == 1000){
+            Log.e("MainActivity","resultCode," + String.valueOf(resultCode));
         }
     }
 }

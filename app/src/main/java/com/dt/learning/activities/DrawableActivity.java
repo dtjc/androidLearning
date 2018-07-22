@@ -36,6 +36,7 @@ public class DrawableActivity extends AppCompatActivity {
     }
 
     public void transitionClick(View view){
+        this.finish();
         TransitionDrawable transitionDrawable = (TransitionDrawable) ivTransition.getDrawable();
         transitionDrawable.reverseTransition(1000);
     }

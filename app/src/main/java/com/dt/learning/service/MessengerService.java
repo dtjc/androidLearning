@@ -1,5 +1,6 @@
 package com.dt.learning.service;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,14 +11,19 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
+import com.dt.learning.Util.TestEvent;
 import com.dt.learning.aidl.User;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MessengerService extends Service {
     private static final int CREATE_USER=1;
+    @SuppressLint("HandlerLeak")
     private Messenger mMessenger=new Messenger(new Handler(){
         @Override
         public void handleMessage(Message msgFromClient) {
             Message msgToClient=Message.obtain(msgFromClient);
+            EventBus.getDefault().post(new TestEvent("new user"));
             switch (msgFromClient.what){
                 case CREATE_USER:
 //                    msgToClient.what=CREATE_USER;
@@ -29,6 +35,7 @@ public class MessengerService extends Service {
                     toClient.putParcelable("user",user);
                     msgToClient.setData(toClient);
                     try {
+//                        msgFromClient.getTarget().sendMessage()
                         msgFromClient.replyTo.send(msgToClient);
                     } catch (RemoteException e) {
                         e.printStackTrace();

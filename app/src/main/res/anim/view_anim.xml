@@ -4,13 +4,13 @@
     android:fillAfter="false">
     <translate
         android:fromXDelta="0"
-        android:toXDelta="200"
+        android:toXDelta="25%p"
         android:fromYDelta="0"
-        android:toYDelta="100" />
+        android:toYDelta="100%" />
     <rotate android:fromDegrees="0"
         android:toDegrees="360"
-        android:pivotX="0"
-        android:pivotY="0"/>
+        android:pivotX="0%"
+        android:pivotY="0%"/>
     <alpha android:fromAlpha="0.2"
         android:toAlpha="1" />
     <scale
