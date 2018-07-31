@@ -97,8 +97,7 @@
         <activity android:name=".activities.LayoutTestActivity" />
         <activity android:name=".activities.ProviderActivity" />
         <activity android:name=".activities.SVGActivity" />
-        <activity android:name=".activities.Sensor_Activity" />
-        <activity android:name=".activities.SensorActivity"></activity>
+        <activity android:name=".activities.SensorActivity" />
     </application>
 
 </manifest>

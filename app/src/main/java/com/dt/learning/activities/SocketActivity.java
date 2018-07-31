@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dt.learning.R;
-import com.dt.learning.Util.Constant;
+import com.dt.learning.Util.ConstantKt;
 import com.dt.learning.Util.Util;
 import com.dt.learning.service.TCPService;
 import com.dt.learning.thread.CheckConnectionRunnable;
@@ -117,7 +117,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         Socket socket = null;
         while (socket == null && !isFinishing()) {
             try {
-                socket = new Socket(Constant.SERVER_IP, 8688);
+                socket = new Socket(ConstantKt.SERVER_IP, 8688);
                 btnSend.post(new Runnable() {
                     @Override
                     public void run() {

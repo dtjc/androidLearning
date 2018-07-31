@@ -101,7 +101,7 @@ public class Util {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
-                .baseUrl("http://" + Constant.SERVER_IP + ":8080/info/")
+                .baseUrl("http://" + ConstantKt.SERVER_IP + ":8080/info/")
                 .build();
     }
 }

@@ -1,15 +1,20 @@
 package com.dt.learning.activities;
 
+import android.Manifest;
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -21,12 +26,14 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dt.learning.R;
+import com.dt.learning.Util.ConstantKt;
 import com.dt.learning.Util.TestEvent;
 import com.dt.learning.Util.Util;
 import com.dt.learning.customerview.MyCircleView;
@@ -61,13 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void init() {
-//        ImageView iv = (ImageView) findViewById(R.id.main_iv_test);
-//        iv.setImageDrawable(getDrawable(R.drawable.drawable2));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         networkStateReceive = new NetworkStateReceive();
         registerReceiver(networkStateReceive, intentFilter);
-        MyCircleView circleView = (MyCircleView) findViewById(R.id.circle_view);
+        final MyCircleView circleView = (MyCircleView) findViewById(R.id.circle_view);
         circleView.setOnTouchListener(new View.OnTouchListener() {
             private int lastX;
             private int lastY;
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    public void takePhotoClick(View view) {
+    public void takePhoto(){
         File file = new File(getExternalCacheDir(), "images");
         if (!file.exists()) file.mkdirs();
         File image = new File(file, "pic.jpg");
@@ -153,7 +158,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        startActivityForResult(intent, 100);
+        startActivityForResult(intent, ConstantKt.REQUEST_MAIN_CAMERA);
+    }
+
+    public void takePhotoClick(View view) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            takePhoto();
+        }else {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, ConstantKt.PERMISSION_CAMERA);
+        }
     }
 
     public void navigationClick(View view) {
@@ -229,12 +242,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            String name = data.getStringExtra("btnName");
-            Button btn = (Button) findViewById(R.id.activity_main_btn_aar_test);
-            btn.setText(name);
-        }else if (requestCode == 1000){
-            Log.e("MainActivity","resultCode," + String.valueOf(resultCode));
+        switch (requestCode){
+            case ConstantKt.REQUEST_MAIN_CAMERA:
+
+                break;
+            case 1:
+                String name = data.getStringExtra("btnName");
+                Button btn = (Button) findViewById(R.id.activity_main_btn_aar_test);
+                btn.setText(name);
+                break;
+            case 1000:
+                Log.e("MainActivity","resultCode," + String.valueOf(resultCode));
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case ConstantKt.PERMISSION_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    takePhoto();
+                }
+                break;
         }
     }
 }
