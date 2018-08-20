@@ -98,6 +98,7 @@
         <activity android:name=".activities.ProviderActivity" />
         <activity android:name=".activities.SVGActivity" />
         <activity android:name=".activities.SensorActivity" />
+        <activity android:name=".activities.XpermodeActivity"></activity>
     </application>
 
 </manifest>

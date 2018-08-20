@@ -239,6 +239,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this,SensorActivity.class));
     }
 
+    public void xpermodeClick(View view){
+        startActivity(new Intent(this,XpermodeActivity.class));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

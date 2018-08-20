@@ -127,9 +127,11 @@
             android:onClick="SensorCLick"/>
 
         <Button
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test"/>
+            android:text="xpermode"
+            android:textAllCaps="false"
+            android:onClick="xpermodeClick"/>
     </LinearLayout>
 
     <LinearLayout
