@@ -21,7 +21,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class TCPService extends Service {
-
+g
     //这个service是会发生内存泄露的，但是为了模仿服务端，因此不考虑
 
     private volatile boolean mIsDestroyed=false;
@@ -106,7 +106,6 @@ public class TCPService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

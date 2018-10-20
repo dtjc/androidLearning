@@ -41,7 +41,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.0'
     implementation 'com.github.romainguy:ViewServer:017c01cd512cac3ec054d9eee05fc48c5a9d2def'
     testImplementation 'junit:junit:4.12'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.anko:anko-coroutines:0.10.4"
 }
 

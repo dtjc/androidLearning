@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -38,6 +39,7 @@ import com.dt.learning.Util.TestEvent;
 import com.dt.learning.Util.Util;
 import com.dt.learning.customerview.MyCircleView;
 import com.dt.learning.customerview.StrokeTextView;
+import com.dt.learning.customerview.SurfaceViewDemo;
 import com.dt.learning.receiver.NetworkStateReceive;
 
 import org.greenrobot.eventbus.EventBus;
@@ -241,6 +243,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void xpermodeClick(View view){
         startActivity(new Intent(this,XpermodeActivity.class));
+    }
+
+    public void surfaceViewClick(View view){
+        startActivity(new Intent(this,SurfaceViewActivity.class));
     }
 
     @Override

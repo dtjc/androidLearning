@@ -54,33 +54,6 @@ public class LayoutTestActivity extends AppCompatActivity {
         abcdTv = (TextView)findViewById(R.id.abcdtv);
         goneTv = (TextView)findViewById(R.id.gonetv);
         abcdTv.setText(String.valueOf(goneTv.getLayoutParams().height));
-//        tv1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                tv1.setText(txt);
-//            }
-//        });
-
-////        tv.post(new Runnable() {
-////            @Override
-////            public void run() {
-////                showOnlineOpenGuild();
-////            }
-////        });
-//
-//        long start = System.nanoTime();
-//        TextView dynamic = new TextView(this);
-//
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        long end = System.nanoTime();
-//        LinearLayout lly = (LinearLayout)findViewById(R.id.lly);
-//        dynamic.setText("abcdefg");
-//        Log.e("time new instance",String.valueOf((end - start)/1.0/1000000));
-//        start = System.nanoTime();
-//        lly.addView(dynamic,lp);
-//        end = System.nanoTime();
-//        Log.e("time add view",String.valueOf((end - start)/1.0/1000000));
 
     }
 
@@ -118,18 +91,6 @@ public class LayoutTestActivity extends AppCompatActivity {
             }
         });
         showPopupWindow(popupWindow,queue);
-//        boolean isNeedShowGuild = PrefUtil.getKeyBoolean(PrefKeys.ONLINE_CHAT_START_GUILD, true);
-//        if (isNeedShowGuild) {
-//            mOnlineOpenGuild.setVisibility(VISIBLE);
-//            mOnlineOpenGuild.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    hideOnlineOpenGuild();
-//                }
-//            });
-//        } else {
-//            mOnlineOpenGuild.setVisibility(GONE);
-//        }
     }
 
 
@@ -200,23 +161,6 @@ public class LayoutTestActivity extends AppCompatActivity {
 
     public void btn(View view){
         this.finish();
-//        if((k&1)==0){
-//            btnTest.setVisibility(View.GONE);
-//        }else {
-//            btnTest.setVisibility(View.VISIBLE);
-//        }
-//        tv1.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                int[] location = new int[2];
-//                tv1.getLocationInWindow(location);
-//                tv.setText("inWindow:" + String.valueOf(location[0])+ "," + String.valueOf(location[1] + "\n"));
-//                tv1.getLocationOnScreen(location);
-//                tv.append("onScreen:" + String.valueOf(location[0])+ "," + String.valueOf(location[1] + "\n"));
-//                tv.append("k = " + String.valueOf(k));
-//                k++;
-//            }
-//        });
 
     }
 

@@ -76,8 +76,8 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         edtMsgToServer = (EditText) findViewById(R.id.content_socket_edt_to_server);
         tvMsgFromServer = (TextView) findViewById(R.id.content_socket_tv_from_server);
         btnSend = (Button) findViewById(R.id.content_socket_btn_send);
-//        Intent service = new Intent(this, TCPService.class);
-//        startService(service);
+        Intent service = new Intent(this, TCPService.class);
+        startService(service);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,25 +100,13 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         }).start();
     }
 
-//    private void connectToServerWithNio(){
-//        SocketChannel sc = SocketChannel.open();
-//        sc.configureBlocking(false);
-//        sc.connect(new InetSocketAddress(Constant.SERVER_IP,8688));
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                ByteBuffer buffer = ByteBuffer.allocate(512);
-//                sc.read(buffer);
-//            }
-//        }).start();
-//    }
 
     private void connectToServerWithSocket(ScheduledExecutorService ses) {
         Socket socket = null;
         while (socket == null && !isFinishing()) {
             try {
                 socket = new Socket(ConstantKt.SERVER_IP, 8688);
-                btnSend.post(new Runnable() {
+                btnSend.post(new Runnable() {e
                     @Override
                     public void run() {
                         Util.showToast("socket 连接中");
