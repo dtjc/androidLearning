@@ -1,11 +1,13 @@
 package com.dt.learning.customerview
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.dt.learning.R
@@ -28,9 +30,27 @@ class SurfaceViewDemo @JvmOverloads constructor(
     private val mPath = Path()
 
     private var x = -1
+    private var screenWidth = 0
+    private var a: Double = 0.0
+    private var b: Double = 0.0
+    private var c: Double = 0.0
+    val pathMatrix = Matrix()
 
     init {
         holder.addCallback(this)
+        screenWidth = context.resources.displayMetrics.widthPixels
+        a = context.resources.displayMetrics.heightPixels * 0.2
+        b = context.resources.displayMetrics.heightPixels * 0.4
+        c = Math.PI / 180
+        mPaint.color = Color.BLACK
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = context.resources.getDimension(R.dimen.sin_line_width)
+        mPaint.flags = Paint.ANTI_ALIAS_FLAG
+        isFocusable = true
+        isFocusableInTouchMode = true
+        keepScreenOn = true
+        pathMatrix.setTranslate(-1f,0f)
+
     }
 
 
@@ -45,30 +65,17 @@ class SurfaceViewDemo @JvmOverloads constructor(
     }
 
     override fun surfaceCreated(holder: SurfaceHolder?) {
-        mPaint.color = Color.BLACK
-        mPaint.style = Paint.Style.STROKE
-        mPaint.strokeWidth = context.resources.getDimension(R.dimen.sin_line_width)
-        mPaint.flags = Paint.ANTI_ALIAS_FLAG
-        isFocusable = true
-        isFocusableInTouchMode = true
-        keepScreenOn = true
         mIsRunning = true
         drawWhileRunning()
     }
 
     private fun drawWhileRunning() {
         GlobalScope.launch(Dispatchers.Default) {
-            val width = context.resources.displayMetrics.widthPixels
-            val a = width * 0.4
-            val b = context.resources.displayMetrics.heightPixels * 0.4
-            val c = Math.PI / 180
             while (mIsRunning && isActive){
                 x++
-                val drawX = if(x > width){
-                    val matrix = Matrix()
-                    matrix.setTranslate(-1f,0f)
-                    mPath.transform(matrix)
-                    width
+                val drawX = if(x > screenWidth){
+                    mPath.transform(pathMatrix)
+                    screenWidth
                 }else{
                     x
                 }
@@ -81,7 +88,7 @@ class SurfaceViewDemo @JvmOverloads constructor(
                     holder.unlockCanvasAndPost(canvas)
                 }
                 if (x == Int.MAX_VALUE){
-                    x = width + (360 - width%360) + Int.MAX_VALUE%360
+                    x = screenWidth + (360 - screenWidth%360) + Int.MAX_VALUE%360
                 }
             }
         }
@@ -91,4 +98,5 @@ class SurfaceViewDemo @JvmOverloads constructor(
         super.onDetachedFromWindow()
         mPath.close()
     }
+
 }
