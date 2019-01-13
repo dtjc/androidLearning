@@ -96,7 +96,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
                 mHandler.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
             } catch (IOException e) {
 
-                    btnSend.post(() -> Util.showToast("Fail to connect"));
+                btnSend.post(() -> Util.showToast("Fail to connect"));
 
                 e.printStackTrace();
             }
