@@ -1,20 +1,23 @@
 package com.dt.learning.customerview
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.widget.ScrollView
 import com.dt.learning.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 class SurfaceViewDemo @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
     defStyleAttr: Int = 0, defStyleRef: Int = 0
-) : SurfaceView(context, attrs, defStyleAttr, defStyleRef), SurfaceHolder.Callback2, Runnable {
+) : SurfaceView(context, attrs, defStyleAttr, defStyleRef), SurfaceHolder.Callback2 {
 
     @Volatile
     private var mIsRunning = true
@@ -24,10 +27,10 @@ class SurfaceViewDemo @JvmOverloads constructor(
 
     private val mPath = Path()
 
-    private val mHolder: SurfaceHolder = holder
+    private var x = -1
 
     init {
-        mHolder.addCallback(this)
+        holder.addCallback(this)
     }
 
 
@@ -49,21 +52,43 @@ class SurfaceViewDemo @JvmOverloads constructor(
         isFocusable = true
         isFocusableInTouchMode = true
         keepScreenOn = true
-        Thread(this).start()
+        mIsRunning = true
+        drawWhileRunning()
     }
 
-    override fun run() {
-        var x = 0
-        while (mIsRunning){
-            val canvas = mHolder.lockCanvas()
-            canvas?.let {
-                canvas.drawColor(Color.WHITE)
-                canvas.drawPath(mPath,mPaint)
-                x += 1
-                val y = (500 * Math.sin(2 * x * Math.PI / 180.0) + 800.0).toFloat()
-                mPath.lineTo(x.toFloat(),y)
-                mHolder.unlockCanvasAndPost(canvas)
+    private fun drawWhileRunning() {
+        GlobalScope.launch(Dispatchers.Default) {
+            val width = context.resources.displayMetrics.widthPixels
+            val a = width * 0.4
+            val b = context.resources.displayMetrics.heightPixels * 0.4
+            val c = Math.PI / 180
+            while (mIsRunning && isActive){
+                x++
+                val drawX = if(x > width){
+                    val matrix = Matrix()
+                    matrix.setTranslate(-1f,0f)
+                    mPath.transform(matrix)
+                    width
+                }else{
+                    x
+                }
+                val y = (a * Math.sin(x * c) + b).toFloat()
+                mPath.lineTo(drawX.toFloat(),y)
+                val canvas = holder.lockCanvas()
+                canvas?.let {
+                    canvas.drawColor(Color.WHITE)
+                    canvas.drawPath(mPath,mPaint)
+                    holder.unlockCanvasAndPost(canvas)
+                }
+                if (x == Int.MAX_VALUE){
+                    x = width + (360 - width%360) + Int.MAX_VALUE%360
+                }
             }
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        mPath.close()
     }
 }
