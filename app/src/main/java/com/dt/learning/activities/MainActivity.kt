@@ -181,28 +181,30 @@ class MainActivity : BaseActivity() {
 
     fun showWindowClick(view: View) {
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)){
+            Toast.makeText(this, "无悬浮窗权限权限", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         if (stv != null) {
             return
         }
 
         stv = StrokeTextView(this)
 
-
         stv!!.includeFontPadding = false
         stv!!.textSize = 12f
+
         val windowType: Int = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             WindowManager.LayoutParams.TYPE_TOAST
         } else {
-            if (!Settings.canDrawOverlays(applicationContext)) {
-                Toast.makeText(this, "无悬浮窗权限权限", Toast.LENGTH_SHORT).show()
-                return
-            }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 WindowManager.LayoutParams.TYPE_TOAST
             } else {
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
             }
         }
+
         val wlp = WindowManager.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
             windowType, 0, PixelFormat.RGBA_8888
