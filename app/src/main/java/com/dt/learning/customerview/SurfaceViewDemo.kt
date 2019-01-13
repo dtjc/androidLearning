@@ -56,12 +56,14 @@ class SurfaceViewDemo @JvmOverloads constructor(
         var x = 0
         while (mIsRunning){
             val canvas = mHolder.lockCanvas()
-            canvas.drawColor(Color.WHITE)
-            canvas.drawPath(mPath,mPaint)
-            x += 1
-            val y = (500 * Math.sin(2 * x * Math.PI / 180.0) + 800.0).toFloat()
-            mPath.lineTo(x.toFloat(),y)
-            mHolder.unlockCanvasAndPost(canvas)
+            canvas?.let {
+                canvas.drawColor(Color.WHITE)
+                canvas.drawPath(mPath,mPaint)
+                x += 1
+                val y = (500 * Math.sin(2 * x * Math.PI / 180.0) + 800.0).toFloat()
+                mPath.lineTo(x.toFloat(),y)
+                mHolder.unlockCanvasAndPost(canvas)
+            }
         }
     }
 }

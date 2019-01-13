@@ -89,13 +89,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity
-            android:name=".activities.NavigationActivity"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SysArgsActivity" />
         <activity android:name=".activities.SplashActivity" />
-        <activity android:name=".activities.LayoutTestActivity" />
         <activity android:name=".activities.ProviderActivity" />
         <activity android:name=".activities.SVGActivity" />
         <activity android:name=".activities.SensorActivity" />

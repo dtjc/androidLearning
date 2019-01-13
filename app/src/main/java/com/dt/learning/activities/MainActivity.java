@@ -1,44 +1,53 @@
 package com.dt.learning.activities;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Debug;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AlertDialog;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.dt.learning.R;
 import com.dt.learning.Util.ConstantKt;
 import com.dt.learning.Util.TestEvent;
 import com.dt.learning.customerview.MyCircleView;
+import com.dt.learning.customerview.StrokeTextView;
 import com.dt.learning.receiver.NetworkStateReceive;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private NetworkStateReceive networkStateReceive;
-//    private StrokeTextView stv;
-    ImageView stv;
+    private StrokeTextView stv;
+    private ActivityManager activityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,66 +161,87 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void navigationClick(View view) {
-        Intent intent = new Intent(this, NavigationActivity.class);
-        startActivity(intent);
-    }
-
     public void showSysArgs(View view) {
         Intent intent = new Intent(this, SysArgsActivity.class);
         startActivity(intent);
     }
 
-    private int i = 0;
-    private AlertDialog dialog;
-
     public void showWindowClick(View view) {
 
-        if(stv != null){
-            if ((i & 1) == 0){
-                stv.setBackgroundColor(Color.BLUE);
-            }else {
-                stv.setBackgroundColor(Color.BLACK);
-            }
-            i++;
+        if (stv != null){
             return;
         }
-        if (stv == null){
-            stv = new ImageView(this);
-            stv.setImageDrawable(getDrawable(R.drawable.oval));
-//            stv.getDrawableState
+
+        stv = new StrokeTextView(this);
+
+        stv.setIncludeFontPadding(false);
+        stv.setTextSize(12);
+        int windowType;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+            windowType = WindowManager.LayoutParams.TYPE_TOAST;
+        }else{
+            if (!Settings.canDrawOverlays(getApplicationContext())){
+                Toast.makeText(this,"无悬浮窗权限权限",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                windowType = WindowManager.LayoutParams.TYPE_TOAST;
+            }else {
+                windowType = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            }
         }
-        if (dialog == null){
-            dialog = new AlertDialog.Builder(this)
-                    .setView(stv)
-                    .create();
-            stv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if ((i & 1) == 0){
-                        stv.setBackgroundColor(Color.WHITE);
-                    }else {
-                        stv.setBackgroundColor(Color.BLACK);
-                    }
-                    i++;
-                }
-            });
-        }
-//        stv.setText("abcd\nefgh\n");
-        dialog.show();
-//        stv.setIncludeFontPadding(false);
-//        stv.setTextSize(12);
-//        stv.setText("abcdefghijklmn\n123456789\nqwerasdfzxcv");
-//        final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams
-//                (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_TOAST, 0, PixelFormat.RGBA_8888);
-//        wlp.gravity = Gravity.LEFT | Gravity.TOP;
-//        wlp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-//                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-//        getWindowManager().addView(stv, wlp);
+        final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams
+                (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                        windowType, 0, PixelFormat.RGBA_8888);
+        wlp.gravity = Gravity.LEFT | Gravity.TOP;
+        wlp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+        getWindowManager().addView(stv, wlp);
+
+        monitorAppStatus();
     }
 
-    public void layoutTestClick(View view) {
-        startActivity(new Intent(this, LayoutTestActivity.class));
+    public void monitorAppStatus(){
+        if (activityManager == null){
+            activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Debug.MemoryInfo memoryInfo = activityManager.getProcessMemoryInfo(new int[]{android.os.Process.myPid()})[0];
+                StringBuilder sb = new StringBuilder();
+                Runtime runtime = Runtime.getRuntime();
+                String mem;
+
+                sb.append("Runtime used: ");
+                mem = String.format(Locale.getDefault(),"%.2f", (runtime.totalMemory() - runtime.freeMemory()) / 1024.0 / 1024 + 0.05);
+                sb.append(mem);
+                sb.append(" M");
+                sb.append("\n");
+
+                sb.append("Runtime free: ");
+                mem = String.format(Locale.getDefault(),"%.2f", runtime.freeMemory() / 1024.0 / 1024 + 0.05);
+                sb.append(mem);
+                sb.append(" M");
+                sb.append("\n");
+
+                mem = String.format(Locale.getDefault(),"%.2f", memoryInfo.dalvikPss / 1024.0 + 0.05);
+                sb.append("ART PSS: ");
+                sb.append(mem);
+                sb.append(" M");
+                sb.append("\n");
+
+                sb.append("Native PSS: ");
+                mem = String.format(Locale.getDefault(),"%.2f", memoryInfo.nativePss / 1024.0 + 0.05);
+                sb.append(mem);
+                sb.append(" M");
+
+                stv.setText(sb.toString());
+                stv.postDelayed(this,1000);
+            }
+        };
+
+        stv.post(runnable);
     }
 
     public void SVGClick(View view){

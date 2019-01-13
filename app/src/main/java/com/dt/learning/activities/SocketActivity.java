@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dt.learning.R;
 import com.dt.learning.Util.ConstantKt;
@@ -54,6 +55,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
                     tvMsgFromServer.setText((String) msg.obj);
                     break;
                 case MESSAGE_SOCKET_CONNECTED:
+                    Toast.makeText(SocketActivity.this,"Socket connected",Toast.LENGTH_SHORT).show();
                     btnSend.setEnabled(true);
                     break;
             }
@@ -73,52 +75,28 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         btnSend = findViewById(R.id.content_socket_btn_send);
         Intent service = new Intent(this, TCPService.class);
         startService(service);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!SocketActivity.this.isFinishing()) {
-                    ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
-                    isClosed = false;
-                    connectToServerWithSocket(ses);
-                    if (!ses.isShutdown()){
-                        ses.shutdownNow();
-                    }
-                    while (!ses.isTerminated()){
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+        new Thread(() -> {
+            while (!SocketActivity.this.isFinishing()) {
+                isClosed = false;
+                connectToServerWithSocket();
             }
         }).start();
     }
 
 
-    private void connectToServerWithSocket(ScheduledExecutorService ses) {
+    private void connectToServerWithSocket() {
         Socket socket = null;
         while (socket == null && !isFinishing()) {
             try {
                 socket = new Socket(ConstantKt.SERVER_IP, 8688);
-                btnSend.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Util.showToast("socket 连接中");
-                    }
-                });
+                btnSend.post(() -> Util.showToast("Socket connecting"));
                 mClientSocket = socket;
                 mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                 mPrintWriter.println(THIS_ID);
                 mHandler.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
             } catch (IOException e) {
 
-                    btnSend.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Util.showToast("socket 连接出错");
-                        }
-                    });
+                    btnSend.post(() -> Util.showToast("Fail to connect"));
 
                 e.printStackTrace();
             }
@@ -128,22 +106,12 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
             if (socket != null){
                 char[] chars = new char[512];
                 br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                ses.scheduleWithFixedDelay(new CheckConnectionRunnable(socket,this),5,5, TimeUnit.SECONDS);
                 while (!this.isFinishing() && !isClosed) {
-                    if (!br.ready()){
-                        continue;
-                    }
                     int read = br.read(chars);
                     Log.e("read", String.valueOf(read));
                     String msg = new String(chars,0,read - 1);
                     if (msg.startsWith("received:")){
-                        btnSend.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Util.showToast("发送成功");
-
-                            }
-                        });
+                        btnSend.post(() -> Util.showToast("发送成功"));
                     }else {
                         msg = msg.substring(msg.indexOf(":") + 1, msg.length());
                         mHandler.obtainMessage(RECEIVE_MSG_FROM_SERVICE, msg).sendToTarget();
@@ -154,7 +122,6 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            ses.shutdownNow();
             closeSocket();
         }
     }

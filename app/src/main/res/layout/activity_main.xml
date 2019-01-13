@@ -74,12 +74,6 @@
             android:text="takePhoto"
             android:textAllCaps="false"
             android:onClick="takePhotoClick"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="navigation"
-            android:onClick="navigationClick"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -99,12 +93,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="layoutTest"
-            android:onClick="layoutTestClick"/>
 
         <Button
             android:layout_width="wrap_content"

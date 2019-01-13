@@ -19,14 +19,21 @@ android {
         }
     }
 
-    dataBinding{
+    dataBinding {
         enabled = true
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -44,11 +51,5 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.anko:anko-coroutines:0.10.4"
-}
-
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 }
