@@ -109,7 +109,9 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         Log.e("MainActivity", "onDestroy")
         super.onDestroy()
-
+        if(stv != null){
+            windowManager.removeView(stv)
+        }
         unregisterReceiver(networkStateReceive)
     }
 
