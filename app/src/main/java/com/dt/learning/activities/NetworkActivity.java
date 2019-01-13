@@ -1,9 +1,9 @@
 package com.dt.learning.activities;
 
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import com.dt.learning.R;
 import com.dt.learning.Util.Util;
 import com.dt.learning.aidl.User;
 import com.dt.learning.netservice.Data;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -23,8 +22,6 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 
 public class NetworkActivity extends AppCompatActivity {
 

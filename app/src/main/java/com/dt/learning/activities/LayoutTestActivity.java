@@ -6,22 +6,19 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.android.debug.hv.ViewServer;
 import com.dt.learning.R;
 
 import java.util.LinkedList;
@@ -46,7 +43,6 @@ public class LayoutTestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_layout_test);
         txt = "abcdefg";
-        ViewServer.get(this).addWindow(this);
         tv1 = (TextView)findViewById(R.id.testTv);
         tv = (TextView)findViewById(R.id.tvWindowTest);
         btnTest = (Button)findViewById(R.id.btn_test);
@@ -142,7 +138,6 @@ public class LayoutTestActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.e("LayoutTestActivity","onDestroy()");
         super.onDestroy();
-        ViewServer.get(this).removeWindow(this);
     }
 
     @Override
@@ -154,7 +149,6 @@ public class LayoutTestActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ViewServer.get(this).setFocusedWindow(this);
     }
 
     private int k = 0;

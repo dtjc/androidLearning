@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/androidLearning.iml" filepath="$PROJECT_DIR$/androidLearning.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dtlib/dtlib.iml" filepath="$PROJECT_DIR$/dtlib/dtlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hello/hello.iml" filepath="$PROJECT_DIR$/hello/hello.iml" />
     </modules>
   </component>
 </project>

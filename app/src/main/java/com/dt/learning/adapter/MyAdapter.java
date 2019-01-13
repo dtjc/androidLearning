@@ -1,14 +1,12 @@
 package com.dt.learning.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dt.learning.R;
-import com.dt.learning.Util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

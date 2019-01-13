@@ -1,1 +1,1 @@
-include ':app', ':dtlib', 'hello'
+include ':app'

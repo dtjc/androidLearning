@@ -63,13 +63,6 @@
             android:text="filePath"
             android:onClick="filePathClick"/>
 
-        <Button
-            android:id="@+id/activity_main_btn_aar_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="aarTest"
-            android:textAllCaps="false"
-            android:onClick="aarTestClick"/>
     </LinearLayout>
 
     <LinearLayout

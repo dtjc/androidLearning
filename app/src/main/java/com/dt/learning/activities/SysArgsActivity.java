@@ -1,13 +1,12 @@
 package com.dt.learning.activities;
 
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import com.dt.learning.R;
-import com.dt.learning.Util.Util;
 
 public class SysArgsActivity extends AppCompatActivity {
 

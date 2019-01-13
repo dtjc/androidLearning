@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Process;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +26,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.SocketChannel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +46,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
     private Button btnSend;
     private volatile boolean isClosed = false;
 
-    private Handler mHander = new Handler() {
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -71,11 +66,11 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        edtMsgToServer = (EditText) findViewById(R.id.content_socket_edt_to_server);
-        tvMsgFromServer = (TextView) findViewById(R.id.content_socket_tv_from_server);
-        btnSend = (Button) findViewById(R.id.content_socket_btn_send);
+        edtMsgToServer = findViewById(R.id.content_socket_edt_to_server);
+        tvMsgFromServer = findViewById(R.id.content_socket_tv_from_server);
+        btnSend = findViewById(R.id.content_socket_btn_send);
         Intent service = new Intent(this, TCPService.class);
         startService(service);
         new Thread(new Runnable() {
@@ -106,7 +101,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
         while (socket == null && !isFinishing()) {
             try {
                 socket = new Socket(ConstantKt.SERVER_IP, 8688);
-                btnSend.post(new Runnable() {e
+                btnSend.post(new Runnable() {
                     @Override
                     public void run() {
                         Util.showToast("socket 连接中");
@@ -115,7 +110,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
                 mClientSocket = socket;
                 mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                 mPrintWriter.println(THIS_ID);
-                mHander.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
+                mHandler.sendEmptyMessage(MESSAGE_SOCKET_CONNECTED);
             } catch (IOException e) {
 
                     btnSend.post(new Runnable() {
@@ -151,7 +146,7 @@ public class SocketActivity extends AppCompatActivity implements SocketListener{
                         });
                     }else {
                         msg = msg.substring(msg.indexOf(":") + 1, msg.length());
-                        mHander.obtainMessage(RECEIVE_MSG_FROM_SERVICE, msg).sendToTarget();
+                        mHandler.obtainMessage(RECEIVE_MSG_FROM_SERVICE, msg).sendToTarget();
                         Log.e("msg from server", msg);
                     }
                 }

@@ -2,7 +2,6 @@ package com.dt.learning.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.ProviderInfo;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -16,12 +15,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class TCPService extends Service {
-g
+
     //这个service是会发生内存泄露的，但是为了模仿服务端，因此不考虑
 
     private volatile boolean mIsDestroyed=false;

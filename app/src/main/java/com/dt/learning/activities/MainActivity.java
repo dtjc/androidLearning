@@ -1,45 +1,31 @@
 package com.dt.learning.activities;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.app.ActivityOptions;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.net.Uri;
-import android.os.Looper;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dt.learning.R;
 import com.dt.learning.Util.ConstantKt;
 import com.dt.learning.Util.TestEvent;
-import com.dt.learning.Util.Util;
 import com.dt.learning.customerview.MyCircleView;
-import com.dt.learning.customerview.StrokeTextView;
-import com.dt.learning.customerview.SurfaceViewDemo;
 import com.dt.learning.receiver.NetworkStateReceive;
 
 import org.greenrobot.eventbus.EventBus;
@@ -146,11 +132,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, StoragePathActivity.class));
     }
 
-    public void aarTestClick(View view) {
-        Intent intent = new Intent(this, com.dt.dtlib.DtlibMainActivity.class);
-        startActivityForResult(intent, 1);
-    }
-
     public void takePhoto(){
         File file = new File(getExternalCacheDir(), "images");
         if (!file.exists()) file.mkdirs();
@@ -255,11 +236,6 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode){
             case ConstantKt.REQUEST_MAIN_CAMERA:
 
-                break;
-            case 1:
-                String name = data.getStringExtra("btnName");
-                Button btn = (Button) findViewById(R.id.activity_main_btn_aar_test);
-                btn.setText(name);
                 break;
             case 1000:
                 Log.e("MainActivity","resultCode," + String.valueOf(resultCode));

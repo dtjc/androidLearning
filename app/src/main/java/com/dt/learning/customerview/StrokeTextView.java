@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
  * Created by dtjc on 2017/8/1.
  */
 
-public class StrokeTextView extends android.support.v7.widget.AppCompatTextView {
+public class StrokeTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     private int mStrokeColor = Color.BLACK;
     private float mStrokeWidth = 1.5f;
