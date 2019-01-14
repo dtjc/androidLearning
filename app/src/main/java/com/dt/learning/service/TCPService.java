@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.dt.learning.Util.Util;
+import com.dt.learning.util.Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

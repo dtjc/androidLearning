@@ -19,8 +19,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dt.learning.R;
-import com.dt.learning.Util.TestEvent;
-import com.dt.learning.Util.Util;
+import com.dt.learning.util.TestEvent;
+import com.dt.learning.util.Util;
 import com.dt.learning.aidl.IFirstAidlInterface;
 import com.dt.learning.aidl.User;
 import com.dt.learning.service.AIDLService;

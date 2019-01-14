@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -71,7 +72,7 @@ class SurfaceViewDemo @JvmOverloads constructor(
 
     private fun drawWhileRunning() {
         GlobalScope.launch(Dispatchers.Default) {
-            while (mIsRunning && isActive){
+            while (mIsRunning){
                 x++
                 val drawX = if(x > screenWidth){
                     mPath.transform(pathMatrix)

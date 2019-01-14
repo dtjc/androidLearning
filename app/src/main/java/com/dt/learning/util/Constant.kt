@@ -1,4 +1,4 @@
-package com.dt.learning.Util;
+package com.dt.learning.util;
 
 /**
  * Created by dtjc on 2017/8/7.

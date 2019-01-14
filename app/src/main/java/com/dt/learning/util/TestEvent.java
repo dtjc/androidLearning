@@ -1,4 +1,4 @@
-package com.dt.learning.Util;
+package com.dt.learning.util;
 
 /**
  * Created by dnnt on 18-3-29.

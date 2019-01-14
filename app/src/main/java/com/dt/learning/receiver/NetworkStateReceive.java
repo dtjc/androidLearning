@@ -3,12 +3,11 @@ package com.dt.learning.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.dt.learning.Util.Util;
+import com.dt.learning.util.Util;
 
 /**
  * Created by dnnt9 on 2017/2/13.

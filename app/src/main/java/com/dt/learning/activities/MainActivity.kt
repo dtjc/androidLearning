@@ -28,11 +28,11 @@ import android.view.WindowManager
 import android.widget.Toast
 
 import com.dt.learning.R
-import com.dt.learning.Util.TestEvent
+import com.dt.learning.util.TestEvent
 import com.dt.learning.customerview.MyCircleView
 import com.dt.learning.customerview.StrokeTextView
 import com.dt.learning.receiver.NetworkStateReceive
-import com.dt.learning.Util.*;
+import com.dt.learning.util.*;
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -220,7 +220,7 @@ class MainActivity : BaseActivity() {
         monitorAppStatus()
     }
 
-    fun monitorAppStatus() {
+    private fun monitorAppStatus() {
         if (activityManager == null) {
             activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         }
@@ -231,35 +231,21 @@ class MainActivity : BaseActivity() {
                     activityManager!!.getProcessMemoryInfo(intArrayOf(android.os.Process.myPid()))[0]
                 val sb = StringBuilder()
                 val runtime = Runtime.getRuntime()
-                var mem: String
-                sb.append("Runtime used: ")
-                mem = String.format(
-                    Locale.getDefault(), "%.2f",
-                    (runtime.totalMemory() - runtime.freeMemory()).toDouble() / 1024.0 / 1024.0 + 0.05
-                )
-                sb.append(mem)
-                sb.append(" M")
-                sb.append("\n")
 
-                sb.append("Runtime free: ")
-                mem = String.format(
-                    Locale.getDefault(), "%.2f",
-                    runtime.freeMemory().toDouble() / 1024.0 / 1024.0 + 0.05
-                )
-                sb.append(mem)
-                sb.append(" M")
-                sb.append("\n")
+                var mem = String.format(Locale.getDefault(), "%.2f",
+                    (runtime.totalMemory() - runtime.freeMemory()).toDouble() / 1024.0 / 1024.0 + 0.05)
+                appendMemInfo(sb,"Runtime used: ",mem)
+
+                mem = String.format(Locale.getDefault(), "%.2f",
+                    runtime.freeMemory().toDouble() / 1024.0 / 1024.0 + 0.05)
+                appendMemInfo(sb,"Runtime free: ",mem)
 
                 mem = String.format(Locale.getDefault(), "%.2f", memoryInfo.dalvikPss / 1024.0 + 0.05)
-                sb.append("ART PSS: ")
-                sb.append(mem)
-                sb.append(" M")
-                sb.append("\n")
+                appendMemInfo(sb,"ART PSS: ",mem)
 
-                sb.append("Native PSS: ")
                 mem = String.format(Locale.getDefault(), "%.2f", memoryInfo.nativePss / 1024.0 + 0.05)
-                sb.append(mem)
-                sb.append(" M")
+
+                appendMemInfo(sb,"Native PSS: ",mem)
 
                 launch(Dispatchers.Main) {
                     stv!!.text = sb.toString()
@@ -269,6 +255,16 @@ class MainActivity : BaseActivity() {
 
         }
 
+    }
+
+    private fun appendMemInfo(sb: StringBuilder,key: String,value: String){
+        with(sb){
+            append(key)
+            append(": ")
+            append(value)
+            append(" M")
+            append("\n")
+        }
     }
 
     fun svgClick(view: View) {

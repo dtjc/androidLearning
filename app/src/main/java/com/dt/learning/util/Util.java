@@ -1,15 +1,12 @@
-package com.dt.learning.Util;
+package com.dt.learning.util;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import android.widget.Toast;
 import com.dt.learning.MyApplication;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -25,14 +22,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Util {
     private static Toast toast;
-
-    public static ExecutorService getSingleThreadEs(){
-        return SingleThreadHolder.INSTANCE;
-    }
-
-    private static class SingleThreadHolder{
-        private static ExecutorService INSTANCE = Executors.newSingleThreadExecutor();
-    }
 
     public static void showToast(String txt){
         if (toast==null) {

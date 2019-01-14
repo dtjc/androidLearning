@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dt.learning.R;
-import com.dt.learning.Util.Util;
+import com.dt.learning.util.Util;
 import com.dt.learning.aidl.User;
 import com.dt.learning.netservice.Data;
 

@@ -3,7 +3,6 @@ package com.dt.learning.service;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -11,7 +10,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
-import com.dt.learning.Util.TestEvent;
+import com.dt.learning.util.TestEvent;
 import com.dt.learning.aidl.User;
 
 import org.greenrobot.eventbus.EventBus;
