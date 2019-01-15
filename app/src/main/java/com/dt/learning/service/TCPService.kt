@@ -28,7 +28,6 @@ class TCPService : Service() {
     override fun onCreate() {
         super.onCreate()
         GlobalScope.launch(Dispatchers.IO) {
-            val superVisorJob = SupervisorJob()
             while (!mIsDestroyed) {
                 var serverSocket: ServerSocket
                 try {
@@ -39,7 +38,6 @@ class TCPService : Service() {
                         launch(Dispatchers.IO) {
                             responseClient(socket)
                         }
-
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
