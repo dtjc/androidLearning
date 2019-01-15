@@ -17,7 +17,6 @@ import com.dt.learning.R
 import com.dt.learning.util.*
 import com.dt.learning.util.Util
 import com.dt.learning.service.TCPService
-import com.dt.learning.thread.SocketListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +28,7 @@ import java.io.OutputStreamWriter
 import java.io.PrintWriter
 import java.net.Socket
 
-class SocketActivity : BaseActivity(), SocketListener {
+class SocketActivity : BaseActivity() {
 
     private var edtMsgToServer: EditText? = null
     private var tvMsgFromServer: TextView? = null
@@ -37,8 +36,6 @@ class SocketActivity : BaseActivity(), SocketListener {
     private var mPrintWriter: PrintWriter? = null
     private var br: BufferedReader? = null
     private var btnSend: Button? = null
-    @Volatile
-    private var isClosed = false
 
     private val mHandler = @SuppressLint("HandlerLeak")
     object : Handler() {
@@ -63,7 +60,6 @@ class SocketActivity : BaseActivity(), SocketListener {
         startService(service)
         launch(Dispatchers.IO) {
             while (!this@SocketActivity.isFinishing) {
-                isClosed = false
                 connectToServerWithSocket()
             }
         }
@@ -98,7 +94,7 @@ class SocketActivity : BaseActivity(), SocketListener {
             socket?.let {
                 val chars = CharArray(512)
                 br = BufferedReader(InputStreamReader(socket.getInputStream()))
-                while (!this.isFinishing && !isClosed) {
+                while (!this.isFinishing) {
                     val read = br!!.read(chars)
                     Log.e("read", read.toString())
                     var msg = String(chars, 0, read - 1)
@@ -161,10 +157,6 @@ class SocketActivity : BaseActivity(), SocketListener {
             e.printStackTrace()
         }
 
-    }
-
-    override fun callBack() {
-        isClosed = true
     }
 
     companion object {
