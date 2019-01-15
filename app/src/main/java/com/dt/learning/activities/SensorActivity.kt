@@ -15,7 +15,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SensorActivity : AppCompatActivity(), SensorEventListener{
+class SensorActivity : BaseActivity(), SensorEventListener{
 
     private val mAccelerometerReading = FloatArray(3)
     private val mMagnetometerReading = FloatArray(3)
@@ -26,12 +26,12 @@ class SensorActivity : AppCompatActivity(), SensorEventListener{
 
     private val a = 180/Math.PI
 
-    private lateinit var mSensorManager: SensorManager
-
+    private val mSensorManager by lazy {
+        getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sensor)
-        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
     override fun onResume() {
@@ -69,7 +69,7 @@ class SensorActivity : AppCompatActivity(), SensorEventListener{
     }
 
     fun showDataInUi(){
-        GlobalScope.launch(Dispatchers.Main){
+        launch(Dispatchers.Main){
             while (!mPause){
                 delay(250)
                 updateOrientationAngles()

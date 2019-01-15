@@ -26,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import com.dt.learning.MyApplication
 
 import com.dt.learning.R
 import com.dt.learning.util.TestEvent
@@ -33,10 +34,7 @@ import com.dt.learning.customerview.MyCircleView
 import com.dt.learning.customerview.StrokeTextView
 import com.dt.learning.receiver.NetworkStateReceive
 import com.dt.learning.util.*;
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,9 +43,8 @@ import java.io.File
 import java.util.Locale
 
 class MainActivity : BaseActivity() {
-    private var networkStateReceive: NetworkStateReceive? = null
-    private var stv: StrokeTextView? = null
-    private var activityManager: ActivityManager? = null
+    private val networkStateReceive by lazy { NetworkStateReceive() }
+    private val stv by lazy { StrokeTextView(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         startActivity(Intent(this, SplashActivity::class.java))
@@ -67,7 +64,6 @@ class MainActivity : BaseActivity() {
     private fun init() {
         val intentFilter = IntentFilter()
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        networkStateReceive = NetworkStateReceive()
         registerReceiver(networkStateReceive, intentFilter)
         val circleView = findViewById<View>(R.id.circle_view) as MyCircleView
         circleView.setOnTouchListener(object : View.OnTouchListener {
@@ -101,17 +97,8 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    override fun onStop() {
-        Log.e("MainActivity", "onStop")
-        super.onStop()
-    }
-
     override fun onDestroy() {
-        Log.e("MainActivity", "onDestroy")
         super.onDestroy()
-        if(stv != null){
-            windowManager.removeView(stv)
-        }
         unregisterReceiver(networkStateReceive)
     }
 
@@ -183,19 +170,19 @@ class MainActivity : BaseActivity() {
 
     fun showWindowClick(view: View) {
 
+        if ((application as MyApplication).windowStv != null){
+            return
+        }
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)){
             Toast.makeText(this, "无悬浮窗权限权限", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (stv != null) {
-            return
-        }
+        stv.includeFontPadding = false
+        stv.textSize = 12f
 
-        stv = StrokeTextView(this)
-
-        stv!!.includeFontPadding = false
-        stv!!.textSize = 12f
+        (application as MyApplication).windowStv = stv
 
         val windowType: Int = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             WindowManager.LayoutParams.TYPE_TOAST
@@ -221,14 +208,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun monitorAppStatus() {
-        if (activityManager == null) {
-            activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        }
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
 
-        launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Default) {
             while (isActive){
                 val memoryInfo =
-                    activityManager!!.getProcessMemoryInfo(intArrayOf(android.os.Process.myPid()))[0]
+                    activityManager.getProcessMemoryInfo(intArrayOf(android.os.Process.myPid()))[0]
                 val sb = StringBuilder()
                 val runtime = Runtime.getRuntime()
 
@@ -248,7 +233,7 @@ class MainActivity : BaseActivity() {
                 appendMemInfo(sb,"Native PSS: ",mem)
 
                 launch(Dispatchers.Main) {
-                    stv!!.text = sb.toString()
+                    stv.text = sb.toString()
                 }
                 delay(1000)
             }
