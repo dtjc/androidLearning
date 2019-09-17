@@ -63,37 +63,19 @@ class TCPService : Service() {
                 Log.e("msg to client", msg)
                 out.println(msg)
             }
-
-            try {
-                client.sendUrgentData(0xff)
-            } catch (e: IOException) {
-                Log.e("exception", "close socket")
-                closeSocket(client)
-                reader.close()
-                out.close()
-                break
-            }
-
         }
+        closeSocket(client)
     }
 
     private fun closeSocket(socket: Socket?) {
-        if (socket == null) {
-            return
+        socket?.run {
+            try {
+                close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
-        try {
-            if (!socket.isInputShutdown) {
-                socket.shutdownInput()
-            }
-            if (!socket.isOutputShutdown) {
-                socket.shutdownOutput()
-            }
-            if (!socket.isClosed) {
-                socket.close()
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+
 
     }
 
