@@ -45,28 +45,4 @@ public class ImageHandleActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onPause() {
-        Log.e("method","onPause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.e("method","onStop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.e("method","onDestroy");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.e("method","onBackPressed");
-        super.onBackPressed();
-    }
 }

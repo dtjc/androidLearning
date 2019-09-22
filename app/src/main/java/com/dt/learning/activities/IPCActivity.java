@@ -82,13 +82,11 @@ public class IPCActivity extends AppCompatActivity {
     Messenger mMessenger=new Messenger(new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
-                case CREATE_USER:
-                    Bundle bundle=msg.getData();
-                    bundle.setClassLoader(User.class.getClassLoader());
-                    User user=bundle.getParcelable("user");
-                    msgTv.setText("name:"+user.getName()+",age:"+String.valueOf(user.getAge()));
-                    break;
+            if (msg.what == CREATE_USER) {
+                Bundle bundle = msg.getData();
+                bundle.setClassLoader(User.class.getClassLoader());
+                User user = bundle.getParcelable("user");
+                msgTv.setText("name:" + user.getName() + ",age:" + String.valueOf(user.getAge()));
             }
             super.handleMessage(msg);
         }

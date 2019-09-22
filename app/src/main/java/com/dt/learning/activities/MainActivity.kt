@@ -184,14 +184,10 @@ class MainActivity : BaseActivity() {
 
         (application as MyApplication).windowStv = stv
 
-        val windowType: Int = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        val windowType: Int = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             WindowManager.LayoutParams.TYPE_TOAST
         } else {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                WindowManager.LayoutParams.TYPE_TOAST
-            } else {
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-            }
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         }
 
         val wlp = WindowManager.LayoutParams(
